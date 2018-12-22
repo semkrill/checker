@@ -1,0 +1,12 @@
+﻿<Window x:Class="CheckerPlus.Dll.MessageKey.MessageKeyWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" Height="250.0" Width="250.0" Background="{x:Null}" Foreground="{x:Null}" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None" Loaded="Window_Loaded" AllowsTransparency="True">
+    <Grid>
+        <Ellipse Fill="#FF323232" HorizontalAlignment="Center" Height="250" VerticalAlignment="Center" Width="250" Opacity="0.4" IsEnabled="False"/>
+        <Label x:Name="LabelKey" Content="A" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Center" Foreground="White" FontSize="48"/>
+
+    </Grid>
+</Window>

@@ -1,0 +1,420 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CheckerPlus"
+        xmlns:System="clr-namespace:System;assembly=mscorlib" x:Class="CheckerPlus.AppWindow"
+        mc:Ignorable="d"
+        Title="Главное окно" Height="515" Width="800" Visibility="Visible" Background="{x:Null}" ResizeMode="NoResize" WindowStyle="None" AllowsTransparency="True">
+    <Window.Resources>
+        <Style x:Key="MaterialDesignWhite" TargetType="{x:Type Button}">
+            <Setter Property="OverridesDefaultStyle" Value="True" />
+            <Setter Property="FocusVisualStyle" Value="{DynamicResource BtnFocusVisual}" />
+            <Setter Property="SnapsToDevicePixels" Value="True" />
+            <Setter Property="RenderOptions.ClearTypeHint" Value="Enabled" />
+            <Setter Property="RenderOptions.BitmapScalingMode" Value="Fant" />
+            <Setter Property="Background" Value="{DynamicResource Static.Background.Brush}" />
+            <Setter Property="Foreground" Value="{DynamicResource Static.Foreground.Brush}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource Static.Border.Brush}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border
+                    x:Name="Border"
+                    Padding="{TemplateBinding Padding}"
+                    Background="{TemplateBinding Background}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness=".9"
+                    CornerRadius="2">
+                            <ContentPresenter
+                        x:Name="PART_Button"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center" />
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup Name="Common">
+                                    <VisualState Name="Normal" />
+                                    <VisualState Name="MouseOver">
+                                        <Storyboard>
+                                            <ColorAnimation
+                                        Storyboard.TargetName="Border"
+                                        Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"
+                                        To="#FFDADADA" />
+                                            <ColorAnimation
+                                        Storyboard.TargetName="Border"
+                                        Storyboard.TargetProperty="(Button.BorderBrush).(SolidColorBrush.Color)"
+                                        To="{DynamicResource MouseOver.Border.Color}" />
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState Name="Pressed">
+                                        <Storyboard>
+                                            <ColorAnimation
+                                        Storyboard.TargetName="Border"
+                                        Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"
+                                        To="{DynamicResource Pressed.Background.Color}" />
+                                            <ColorAnimation
+                                        Storyboard.TargetName="Border"
+                                        Storyboard.TargetProperty="(Button.BorderBrush).(SolidColorBrush.Color)"
+                                        To="{DynamicResource Pressed.Border.Color}" />
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualStateGroup.Transitions>
+                                        <VisualTransition GeneratedDuration="00:00:00.2" To="Normal" />
+                                        <VisualTransition GeneratedDuration="00:00:00.2" To="MouseOver">
+                                            <VisualTransition.GeneratedEasingFunction>
+                                                <ExponentialEase EasingMode="EaseOut" Exponent="10" />
+                                            </VisualTransition.GeneratedEasingFunction>
+                                        </VisualTransition>
+                                        <VisualTransition GeneratedDuration="00:00:00.2" To="Pressed">
+                                            <VisualTransition.GeneratedEasingFunction>
+                                                <ExponentialEase EasingMode="EaseOut" Exponent="10" />
+                                            </VisualTransition.GeneratedEasingFunction>
+                                        </VisualTransition>
+                                        <VisualTransition GeneratedDuration="00:00:00.2" To="Focused">
+                                            <VisualTransition.GeneratedEasingFunction>
+                                                <ExponentialEase EasingMode="EaseOut" Exponent="10" />
+                                            </VisualTransition.GeneratedEasingFunction>
+                                        </VisualTransition>
+                                    </VisualStateGroup.Transitions>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Opacity" Value=".6" />
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Cursor" Value="Hand" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="BtnFocusVisual">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle
+                    Margin="2"
+                    SnapsToDevicePixels="true"
+                    Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"
+                    StrokeDashArray="1 2"
+                    StrokeThickness="1" />
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!--#endregion-->
+        <!--#region DefaultBtn-->
+        <Style x:Key="MaterialDesign" TargetType="{x:Type Button}">
+            <Setter Property="OverridesDefaultStyle" Value="True" />
+            <Setter Property="FocusVisualStyle" Value="{DynamicResource BtnFocusVisual}" />
+            <Setter Property="SnapsToDevicePixels" Value="True" />
+            <Setter Property="RenderOptions.ClearTypeHint" Value="Enabled" />
+            <Setter Property="RenderOptions.BitmapScalingMode" Value="Fant" />
+            <Setter Property="Background" Value="{DynamicResource Static.Background.Brush}" />
+            <Setter Property="Foreground" Value="{DynamicResource Static.Foreground.Brush}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource Static.Border.Brush}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border
+                    x:Name="Border"
+                    Padding="{TemplateBinding Padding}"
+                    Background="{TemplateBinding Background}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness=".9"
+                    CornerRadius="2">
+                            <ContentPresenter
+                        x:Name="PART_Button"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center" />
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup Name="Common">
+                                    <VisualState Name="Normal" />
+                                    <VisualState Name="MouseOver">
+                                        <Storyboard>
+                                            <ColorAnimation
+                                        Storyboard.TargetName="Border"
+                                        Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"
+                                        To="#FF2E2E2E" />
+                                            <ColorAnimation
+                                        Storyboard.TargetName="Border"
+                                        Storyboard.TargetProperty="(Button.BorderBrush).(SolidColorBrush.Color)"
+                                        To="{DynamicResource MouseOver.Border.Color}" />
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState Name="Pressed">
+                                        <Storyboard>
+                                            <ColorAnimation
+                                        Storyboard.TargetName="Border"
+                                        Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"
+                                        To="{DynamicResource Pressed.Background.Color}" />
+                                            <ColorAnimation
+                                        Storyboard.TargetName="Border"
+                                        Storyboard.TargetProperty="(Button.BorderBrush).(SolidColorBrush.Color)"
+                                        To="{DynamicResource Pressed.Border.Color}" />
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualStateGroup.Transitions>
+                                        <VisualTransition GeneratedDuration="00:00:00.2" To="Normal" />
+                                        <VisualTransition GeneratedDuration="00:00:00.2" To="MouseOver">
+                                            <VisualTransition.GeneratedEasingFunction>
+                                                <ExponentialEase EasingMode="EaseOut" Exponent="10" />
+                                            </VisualTransition.GeneratedEasingFunction>
+                                        </VisualTransition>
+                                        <VisualTransition GeneratedDuration="00:00:00.2" To="Pressed">
+                                            <VisualTransition.GeneratedEasingFunction>
+                                                <ExponentialEase EasingMode="EaseOut" Exponent="10" />
+                                            </VisualTransition.GeneratedEasingFunction>
+                                        </VisualTransition>
+                                        <VisualTransition GeneratedDuration="00:00:00.2" To="Focused">
+                                            <VisualTransition.GeneratedEasingFunction>
+                                                <ExponentialEase EasingMode="EaseOut" Exponent="10" />
+                                            </VisualTransition.GeneratedEasingFunction>
+                                        </VisualTransition>
+                                    </VisualStateGroup.Transitions>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Opacity" Value=".6" />
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Cursor" Value="Hand" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <!--#endregion-->
+    </Window.Resources>
+    <Grid UseLayoutRounding="True" Height="427" Margin="-4,0,0,0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="798*"/>
+            <ColumnDefinition Width="5*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid Margin="4,-4,0,4" Grid.ColumnSpan="3">
+            <Rectangle x:Name="MainFon1" HorizontalAlignment="Left" Height="449" VerticalAlignment="Top" Width="800" Margin="0,10,0,-32" RenderTransformOrigin="0.5,0.5" Fill="#FF474747">
+                <Rectangle.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleY="1" ScaleX="1"/>
+                        <SkewTransform AngleY="0" AngleX="0"/>
+                        <RotateTransform Angle="0"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Rectangle.RenderTransform>
+            </Rectangle>
+            <Label x:Name="label" Content="v 1.2.2.2 build 7" HorizontalAlignment="Left" Margin="717,436,0,-32" VerticalAlignment="Top" Width="83" FontFamily="/CheckerPlus;component/MyFonts/#Roboto Thin" FontSize="11" Foreground="White" SnapsToDevicePixels="True"/>
+            <Rectangle Fill="#FF272727" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="800" MouseLeftButtonDown="Rectangle_MouseLeftButtonDown" Stroke="#FF272727" StrokeThickness="4" RadiusY="2" RadiusX="2" Stretch="UniformToFill">
+                <Rectangle.Effect>
+                    <DropShadowEffect Opacity="0.2" Direction="270" BlurRadius="3" ShadowDepth="3"/>
+                </Rectangle.Effect>
+            </Rectangle>
+            <Image x:Name="logo" Margin="10,-38,365,407" Source="Resources/checkerplus.png" RenderOptions.BitmapScalingMode="HighQuality" MouseLeftButtonDown="Rectangle_MouseLeftButtonDown">
+                <Image.OpacityMask>
+                    <ImageBrush ImageSource="Resources/checkerplus.png"/>
+                </Image.OpacityMask>
+            </Image>
+            <Label Content="Захват клавиш" HorizontalAlignment="Left" Margin="10,449,0,-6" VerticalAlignment="Top" Foreground="White" FontFamily="Material Sans" FontSize="14"/>
+            <Label Content="Отслеживание клавиш" HorizontalAlignment="Left" Margin="0,412,0,-12" VerticalAlignment="Top" Foreground="White" Height="27" FontSize="11" FontFamily="Material Sans"/>
+        </Grid>
+        <Grid x:Name="Rectangles" Margin="12,22,10,19">
+            <Rectangle HorizontalAlignment="Left" Height="71" VerticalAlignment="Top" Width="71" Margin="2,0,0,0" Fill="#FF363636" Visibility="Hidden">
+                <Rectangle.Effect>
+                    <DropShadowEffect Opacity="0.3"/>
+                </Rectangle.Effect>
+            </Rectangle>
+            <Rectangle Fill="#FF363636" HorizontalAlignment="Left" Height="44" Margin="80,0,0,0" VerticalAlignment="Top" Width="594">
+                <Rectangle.Effect>
+                    <DropShadowEffect Opacity="0.3"/>
+                </Rectangle.Effect>
+            </Rectangle>
+            <Rectangle Fill="#FF363636" HorizontalAlignment="Left" Height="26" Margin="80,43,0,0" VerticalAlignment="Top" Width="152">
+                <Rectangle.Effect>
+                    <DropShadowEffect Opacity="0.3"/>
+                </Rectangle.Effect>
+            </Rectangle>
+            <Grid UseLayoutRounding="True" Margin="0,85,510,0">
+                <Rectangle HorizontalAlignment="Left" Height="256" VerticalAlignment="Top" Width="187" Margin="10,0,0,0" Fill="White" StrokeThickness="5" Stroke="White">
+                    <Rectangle.Effect>
+                        <DropShadowEffect BlurRadius="2" ShadowDepth="2" Opacity="0.2"/>
+                    </Rectangle.Effect>
+                </Rectangle>
+                <Button Style="{StaticResource MaterialDesign}" x:Name="Button_Exit" Content="❌" HorizontalAlignment="Center" VerticalAlignment="Center" Width="21" Height="19" FontSize="8" FontFamily="Calibri" Foreground="White" Margin="769,-110,-526,392" BorderBrush="#00000000" Background="#01FFFFFF" Click="button_exit" FontWeight="Bold" RenderTransformOrigin="1,0.5"/>
+                <Button Style="{StaticResource MaterialDesign}" x:Name="Button_Close" Content="_" HorizontalAlignment="Center" VerticalAlignment="Center" Width="21" Height="20" FontSize="10" FontFamily="Calibri" Foreground="White" Margin="748,-111,-505,392" BorderBrush="#00000000" Background="#00000000" Click="hideapp" FontWeight="Bold" RenderTransformOrigin="1,0.5"/>
+                <Grid x:Name="Menu" Margin="10,0,67,50" UseLayoutRounding="True">
+                    <Button Style="{StaticResource MaterialDesign}"  x:Name="Button_Soft" Content="Программы" HorizontalAlignment="Center" VerticalAlignment="Center" Width="166" Height="44" FontSize="24" FontFamily="Material Sans" Foreground="White" Margin="10,108,11,99" BorderBrush="#00000000" Background="#FF363636" Click="button_Copy_Click">
+                        <Button.Effect>
+                            <DropShadowEffect Opacity="0.4" BlurRadius="2" ShadowDepth="2"/>
+                        </Button.Effect>
+                    </Button>
+                    <Button Style="{StaticResource MaterialDesign}" x:Name="Button_Other" Content="Другое" Width="166" Height="44" FontSize="24" FontFamily="Material Sans" Foreground="White" Margin="10,157,11,50" BorderBrush="#00000000" Background="#FF363636" Click="button_Copy1_Click" VerticalAlignment="Center" HorizontalAlignment="Center" SnapsToDevicePixels="True">
+                        <Button.Effect>
+                            <DropShadowEffect Opacity="0.4" BlurRadius="2" ShadowDepth="2"/>
+                        </Button.Effect>
+                    </Button>
+                    <Button Style="{StaticResource MaterialDesign}" x:Name="Button_Find" Content="Поиск" HorizontalAlignment="Center" VerticalAlignment="Center" Width="166" Height="44" FontSize="24" FontFamily="Material Sans" Foreground="White" Margin="10,59,11,148" Background="#FF363636" Click="button_Click" BorderBrush="#00363636">
+                        <Button.Effect>
+                            <DropShadowEffect Opacity="0.4" BlurRadius="2" ShadowDepth="2"/>
+                        </Button.Effect>
+                    </Button>
+                    <Button Style="{StaticResource MaterialDesign}" x:Name="Button_Main" Content="Главное" HorizontalAlignment="Center" VerticalAlignment="Center" Width="166" Height="44" FontSize="24" FontFamily="Material Sans" Foreground="White" Margin="10,10,11,197" BorderBrush="#00000000" Background="#FF363636" Click="button_Copy2_Click">
+                        <Button.Effect>
+                            <DropShadowEffect Opacity="0.4" BlurRadius="2" ShadowDepth="2"/>
+                        </Button.Effect>
+                    </Button>
+                    <Button Style="{StaticResource MaterialDesign}" x:Name="Button_Accounts" Content="Аккаунты" Width="166" Height="44" FontSize="24" FontFamily="Material Sans" Foreground="White" Margin="10,206,11,1" BorderBrush="#00000000" Background="#FF363636" Click="Button_Copy2_Click_1"  VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <Button.Effect>
+                            <DropShadowEffect Opacity="0.4" BlurRadius="2" ShadowDepth="2"/>
+                        </Button.Effect>
+                    </Button>
+                    <Button Style="{StaticResource MaterialDesignWhite}" x:Name="HookKeys" Content="Выключено" Width="94" Height="22" FontFamily="Material Sans" Foreground="Black" Margin="-3,319,96,-90" BorderBrush="#00000000" Background="White"  VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="14" Click="HookKeys_Click">
+                        <Button.Effect>
+                            <DropShadowEffect Opacity="0.4" BlurRadius="2" ShadowDepth="2"/>
+                        </Button.Effect>
+                    </Button>
+                </Grid>
+            </Grid>
+        </Grid>
+        <Grid x:Name="Panel" Margin="226,111,44,10">
+            <Rectangle x:Name="fon" Fill="White" Height="307" VerticalAlignment="Top" RadiusX="1" RadiusY="1" HorizontalAlignment="Left" Width="528" Margin="0,0,0,-1" Stroke="White" StrokeThickness="5">
+                <Rectangle.Effect>
+                    <DropShadowEffect Opacity="0.2"/>
+                </Rectangle.Effect>
+            </Rectangle>
+            <Grid x:Name="Soft" IsHitTestVisible="True" Visibility="Hidden">
+                <Button Style="{StaticResource MaterialDesign}"  x:Name="Button_LastActivity" HorizontalAlignment="Left" Margin="21,22,0,0" VerticalAlignment="Top" Width="140" Height="44" BorderBrush="#00000000" Click="lastactivity_Click" Background="#FF363636" Foreground="White">
+                    <Button.Effect>
+                        <DropShadowEffect Opacity="0.4" BlurRadius="2" ShadowDepth="2"/>
+                    </Button.Effect>
+                    <TextBlock x:Name="textBlock2" TextWrapping="Wrap" TextAlignment="Center" Width="79" Height="36" FontFamily="Material Sans" TextDecorations="{x:Null}" IsEnabled="False" Foreground="White" FontSize="13" HorizontalAlignment="Center" VerticalAlignment="Center"><Run Text="Последняя"/><LineBreak/><Run Text="активность"/><LineBreak/><Run/><LineBreak/><Run Text="в"/><LineBreak/><Run Text=""/><LineBreak/><Run/><Run Text=" "/><LineBreak/><Run/></TextBlock>
+                </Button>
+                <Button Style="{StaticResource MaterialDesign}"  x:Name="Button_historydevviews" HorizontalAlignment="Left" Margin="366,22,0,0" VerticalAlignment="Top" Width="140" Height="44" BorderBrush="Transparent" Click="historydeviews_Click" Background="#FF363636" Foreground="White">
+                    <Button.Effect>
+                        <DropShadowEffect Opacity="0.4" BlurRadius="2" ShadowDepth="2"/>
+                    </Button.Effect>
+                    <TextBlock x:Name="textBlock1" TextWrapping="Wrap" TextAlignment="Center" Width="79" Height="36" FontFamily="Material Sans" TextDecorations="{x:Null}" IsEnabled="False" Foreground="White" Text="История устройств" FontSize="13"/>
+                </Button>
+                <Button Style="{StaticResource MaterialDesign}"  x:Name="Button_historybrowserviews" HorizontalAlignment="Left" Margin="194,22,0,0" VerticalAlignment="Top" Width="140" Height="44" BorderBrush="Transparent" Click="historybrowsers_Click" Background="#FF363636" Foreground="White">
+                    <Button.Effect>
+                        <DropShadowEffect Opacity="0.4" BlurRadius="2" ShadowDepth="2"/>
+                    </Button.Effect>
+                    <TextBlock x:Name="textBlock3" TextWrapping="Wrap" TextAlignment="Center" Width="79" Height="36" FontFamily="Material Sans" TextDecorations="{x:Null}" IsEnabled="False" Foreground="White" FontSize="13"><Run Text="История "/><Run Text="бразуров"/></TextBlock>
+                </Button>
+                <Button Style="{StaticResource MaterialDesign}"  x:Name="Button_Recuva" HorizontalAlignment="Left" Margin="21,86,0,0" VerticalAlignment="Top" Width="140" Height="44" BorderBrush="#00000000" Click="Recuva_Click" Background="#FF363636" Foreground="White">
+                    <Button.Effect>
+                        <DropShadowEffect Opacity="0.4" BlurRadius="2" ShadowDepth="2"/>
+                    </Button.Effect>
+                    <TextBlock x:Name="textBlock4" TextWrapping="Wrap" TextAlignment="Center" Width="118" Height="36" FontFamily="Material Sans" TextDecorations="{x:Null}" IsEnabled="False" Foreground="White" FontSize="13"><Run Text="Просмотр "/><LineBreak/><Run Text="удаленных файлов"/><LineBreak/><Run/></TextBlock>
+                </Button>
+                <Button Style="{StaticResource MaterialDesign}"  x:Name="Button_Everything" HorizontalAlignment="Left" Margin="194,86,0,0" VerticalAlignment="Top" Width="140" Height="44" BorderBrush="Transparent" Click="Everything_Click" Background="#FF363636" Foreground="White">
+                    <Button.Effect>
+                        <DropShadowEffect Opacity="0.4" BlurRadius="2" ShadowDepth="2"/>
+                    </Button.Effect>
+                    <TextBlock x:Name="textBlock11" TextWrapping="Wrap" TextAlignment="Center" Width="118" Height="18" FontFamily="Material Sans" TextDecorations="{x:Null}" IsEnabled="False" Foreground="White" FontSize="14" Text="Поиск файлов"/>
+                </Button>
+            </Grid>
+            <Grid x:Name="Other" Margin="0,0,0,-1" ScrollViewer.VerticalScrollBarVisibility="Hidden" Visibility="Hidden">
+                <Button Style="{StaticResource MaterialDesign}"  x:Name="checkpress" HorizontalAlignment="Left" VerticalAlignment="Top" Width="140" Height="44" BorderBrush="#00000000" Click="checkpress_Click" Background="#FF363636" Margin="21,22,0,0" HorizontalContentAlignment="Center" Foreground="White" FontFamily="Material Sans">
+                    <Button.Effect>
+                        <DropShadowEffect Opacity="0.4" BlurRadius="2" ShadowDepth="2"/>
+                    </Button.Effect>
+                    <TextBlock x:Name="textBlock5" TextWrapping="Wrap" TextAlignment="Center" Width="79" Height="36" FontFamily="Material Sans" TextDecorations="{x:Null}" IsEnabled="False" Foreground="White" FontSize="14"><Run Text="Проверка клавиш"/><LineBreak/><Run/></TextBlock>
+                </Button>
+                <Button Style="{StaticResource MaterialDesign}"  x:Name="checkmouse" HorizontalAlignment="Left" Margin="194,22,0,0" VerticalAlignment="Top" Width="140" Height="44" BorderBrush="Transparent" Click="checkmouse_Click" Background="#FF363636" Foreground="White" FontFamily="Material Sans">
+                    <Button.Effect>
+                        <DropShadowEffect Opacity="0.4" BlurRadius="2" ShadowDepth="2"/>
+                    </Button.Effect>
+                    <TextBlock x:Name="textBlock6" TextWrapping="Wrap" TextAlignment="Center" Width="79" Height="36" FontFamily="Material Sans" TextDecorations="{x:Null}" IsEnabled="False" Foreground="White" Text="Проверка мыши" FontSize="14"/>
+                </Button>
+                <Button Style="{StaticResource MaterialDesign}"  x:Name="button_hiddenfiles" HorizontalAlignment="Left" Margin="366,22,0,0" VerticalAlignment="Top" Width="140" Height="44" BorderBrush="Transparent" Click="hiddenfiles_Click" Background="#FF363636" Foreground="White" FontFamily="Material Sans">
+                    <Button.Effect>
+                        <DropShadowEffect Opacity="0.4" BlurRadius="2" ShadowDepth="2"/>
+                    </Button.Effect>
+                    <TextBlock x:Name="textBlock10" TextWrapping="Wrap" TextAlignment="Center" Width="100" Height="36" FontFamily="Material Sans" TextDecorations="{x:Null}" IsEnabled="False" Foreground="White" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Center"><Run Text="Скрытые файлы"/><LineBreak/><Run Text="рабочего стола"/></TextBlock>
+                </Button>
+                <Button Style="{StaticResource MaterialDesign}"  x:Name="Button_sites" HorizontalAlignment="Left" VerticalAlignment="Top" Width="140" Height="44" BorderBrush="#00000000" Click="Button_sites_Click" Background="#FF363636" HorizontalContentAlignment="Center" Foreground="White" FontFamily="Material Sans" Margin="21,86,0,0">
+                    <Button.Effect>
+                        <DropShadowEffect Opacity="0.4" BlurRadius="2" ShadowDepth="2"/>
+                    </Button.Effect>
+                    <TextBlock x:Name="textBlock12" TextWrapping="Wrap" TextAlignment="Center" Width="79" Height="36" FontFamily="Material Sans" TextDecorations="{x:Null}" IsEnabled="False" Foreground="White" FontSize="14"><Run Text="Сайты"/><LineBreak/><Run Text="Читеров"/></TextBlock>
+                </Button>
+            </Grid>
+            <Grid x:Name="FindWindow" UseLayoutRounding="True" Visibility="Hidden">
+                <Button Style="{StaticResource MaterialDesign}"  x:Name="grid_totxt" HorizontalAlignment="Center" Margin="370,255,48,-12" VerticalAlignment="Top" Width="110" Height="37" BorderBrush="#FF363636" Click="grid_totxt_Click" Background="#FF363636" Visibility="Hidden" FontFamily="Consolas" Foreground="White" FontSize="11">
+                    <Button.Effect>
+                        <DropShadowEffect Opacity="0.4" BlurRadius="2" ShadowDepth="2"/>
+                    </Button.Effect>
+                    <TextBlock x:Name="textBlock7" TextWrapping="Wrap" TextAlignment="Center" Width="79" Height="36" FontFamily="Material Sans" TextDecorations="{x:Null}" IsEnabled="False" Foreground="White" FontSize="14"><Run Text="Получить"/><LineBreak/><Run Text="Отчет[.txt]"/></TextBlock>
+                </Button>
+                <Grid x:Name="Find" Margin="23,22,23,101" Visibility="Hidden">
+                    <Border BorderBrush="#FF787878" BorderThickness="1" HorizontalAlignment="Left" Height="206" Margin="-15,-11,-13,-41" VerticalAlignment="Top" Width="410" Background="White"/>
+                </Grid>
+                <DataGrid x:Name="DataFiles" HorizontalAlignment="Left" Margin="6,5,0,0" VerticalAlignment="Top" Width="515" IsHitTestVisible="True" IsSynchronizedWithCurrentItem="False" SelectionUnit="CellOrRowHeader" MouseDoubleClick="dataGrid_MouseDoubleClick" BeginningEdit="dataGrid_BeginningEdit" IsReadOnly="True" Height="245" FontFamily="Consolas" HorizontalGridLinesBrush="#FFCBCBCB" VerticalGridLinesBrush="#FFCBCBCB" CanUserResizeRows="False" BorderBrush="{x:Null}" Foreground="#FF111111" AutomationProperties.IsColumnHeader="True" HorizontalScrollBarVisibility="Disabled" Visibility="Hidden" AutomationProperties.IsRowHeader="True" CanUserReorderColumns="False" CanUserResizeColumns="False" HeadersVisibility="Column" Background="White" >
+                    <DataGrid.Effect>
+                        <DropShadowEffect Opacity="0.3" BlurRadius="2" ShadowDepth="2"/>
+                    </DataGrid.Effect>
+                </DataGrid>
+                <Button Style="{StaticResource MaterialDesign}"  x:Name="button_startfind" Content="Начать поиск" HorizontalAlignment="Center" VerticalAlignment="Center" Width="146" Height="38" FontSize="20" FontFamily="/CheckerPlus;component/MyFonts/#Roboto Black" Foreground="White" Margin="202,117,180,151" BorderBrush="#00D3D3D3" Background="#FF363636" Click="button_startfind_Click"/>
+
+            </Grid>
+            <Grid x:Name="Main">
+                <Label x:Name="label1" Content="Главное" HorizontalAlignment="Left" Margin="210,0,0,0" VerticalAlignment="Top" FontFamily="Consolas" FontSize="24" Foreground="#FF272727" Background="White" SnapsToDevicePixels="True" FontWeight="Bold"/>
+                <TextBlock x:Name="textBlock8" HorizontalAlignment="Left" Margin="27,39,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="191" Width="480" Foreground="#FF232323" FontFamily="./#Roboto Light" FontSize="20" TextDecorations="{x:Null}" SnapsToDevicePixels="True"><Run Text="CheckerPlus - программа "/><Run Text="для поиска макросов"/><Run Text="/"/><Run Text="чито"/><Run Text="в."/><LineBreak/><Run Text="Программа имеет в себе "/><Run Text="поиск по маскам"/><Run Text=","/><Run Text=" несколько программ и дополнительные функциию"/><Run Text="."/><LineBreak/><Run Text="Программа распространяется исключительно "/><Run Text="бесплатно"/><Run Text="."/><Run Text=" "/><LineBreak/><Run Text="Возможно "/><Run Text="коммерческое"/><Run Text=" сотрудничество."/></TextBlock>
+                <TextBlock x:Name="textBlock9" HorizontalAlignment="Center" Margin="191,235,178,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="#FF383838" FontFamily="/CheckerPlus;component/MyFonts/#Roboto Thin" Height="26" Width="159" FontSize="20"><Run Text="Обратная связь"/><LineBreak/><Run/></TextBlock>
+                <Image x:Name="vk_Image" Margin="191,261,302,10" Source="Resources/vk.png" RenderOptions.BitmapScalingMode="HighQuality" Width="32" Height="35" MouseLeftButtonDown="Vk_Image_MouseLeftButtonDown">
+                    <Image.OpacityMask>
+                        <ImageBrush ImageSource="Resources/vk.png" Stretch="None"/>
+                    </Image.OpacityMask>
+                </Image>
+                <Image x:Name="tgraph_Image" Margin="247,262,251,12" Source="Resources/telegram.png" RenderOptions.BitmapScalingMode="HighQuality" Width="30" MouseLeftButtonDown="Tgraph_Image_MouseLeftButtonDown">
+                    <Image.OpacityMask>
+                        <ImageBrush ImageSource="Resources/telegram.png"/>
+                    </Image.OpacityMask>
+                </Image>
+                <Image x:Name="steam_Image" Margin="300,264,198,12" Source="Resources/steamico.png" RenderOptions.BitmapScalingMode="HighQuality" Width="30" Height="30" AllowDrop="True" MouseLeftButtonDown="Steam_Image_MouseLeftButtonDown">
+                    <Image.OpacityMask>
+                        <ImageBrush ImageSource="Resources/steamico.png"/>
+                    </Image.OpacityMask>
+                </Image>
+            </Grid>
+            <Grid x:Name="Accounts" Margin="6,5,7,56" Visibility="Hidden">
+                <DataGrid x:Name="DataAccounts" ItemsSource="{Binding}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="515" IsHitTestVisible="True" IsSynchronizedWithCurrentItem="False" SelectionUnit="CellOrRowHeader" MouseDoubleClick="dataGrid_MouseDoubleClick" BeginningEdit="dataGrid_BeginningEdit" IsReadOnly="True" Height="245" FontFamily="Consolas" HorizontalGridLinesBrush="#FFB4B4B4" VerticalGridLinesBrush="#FFB2B2B2" CanUserResizeRows="False" BorderBrush="{x:Null}" Foreground="#FF1F1F1F" HorizontalScrollBarVisibility="Disabled" AutomationProperties.IsRowHeader="True" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserSortColumns="False" Grid.ColumnSpan="3" HeadersVisibility="Column" Background="White" FontSize="14" >
+                    <DataGrid.Effect>
+                        <DropShadowEffect Opacity="0.3" BlurRadius="2" ShadowDepth="2"/>
+                    </DataGrid.Effect>
+                </DataGrid>
+                <Label x:Name="Label_NoAccounts" Content="Аккаунты не обнаружены" HorizontalAlignment="Left" Margin="40,101,0,0" VerticalAlignment="Top" Height="72" Width="434" FontFamily="/CheckerPlus;component/MyFonts/#Roboto Thin" FontSize="36" Foreground="#FF131313" Visibility="Hidden"/>
+            </Grid>
+        </Grid>
+        <Grid UseLayoutRounding="True" x:Name="SteamInfo" Margin="0,7,450,325">
+            <Ellipse x:Name="newprofile_img" Width="Auto" Height="Auto" Margin="15,16,260,10">
+                <Ellipse.Effect>
+                    <DropShadowEffect BlurRadius="2" ShadowDepth="2" Opacity="0.3"/>
+                </Ellipse.Effect>
+                <Ellipse.Fill>
+                    <ImageBrush Stretch="UniformToFill"/>
+                </Ellipse.Fill>
+            </Ellipse>
+            <Label x:Name="profile_steamid" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" FontFamily="Consolas" Height="27" Margin="96,58,0,0" SnapsToDevicePixels="True" FontSize="14" TextOptions.TextFormattingMode="Display" Width="146"/>
+            <Label x:Name="profile_name" Content="" HorizontalAlignment="Left" Margin="93,12,0,0" VerticalAlignment="Top" Foreground="White" FontSize="36" FontFamily="/CheckerPlus;component/MyFonts/#Roboto Thin" Height="49" SnapsToDevicePixels="True"/>
+            <Label x:Name="Maked" Content="Ошибка&#xA;" HorizontalAlignment="Left" Margin="27,24,0,0" VerticalAlignment="Top" Foreground="White" FontSize="36" FontFamily="Leelawadee UI Semilight Semilight" Height="66" RenderTransformOrigin="0.5,0.5" Visibility="Hidden">
+                <Label.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="-13.359"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Label.RenderTransform>
+            </Label>
+            <Label x:Name="profile_vac" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" FontSize="16" FontFamily="/CheckerPlus;component/MyFonts/#Roboto Thin" Height="28" Margin="591,12,-376,0" Width="73" SnapsToDevicePixels="True"/>
+            <Image x:Name="profile_img" HorizontalAlignment="Left" Height="69" Margin="15,16,0,0" VerticalAlignment="Top" Width="69"/>
+        </Grid>
+    </Grid>
+</Window>
