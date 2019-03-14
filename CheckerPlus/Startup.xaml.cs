@@ -30,9 +30,9 @@ namespace CheckerPlus
     /// </summary>
     public partial class Startup : Window
     {
-        
+
         public Startup()
-        {           
+        {
             InitializeComponent();
 #if DEBUG
             Debug.WriteLine(System.Windows.Forms.Keys.Oemtilde.GetHashCode());
@@ -59,7 +59,7 @@ namespace CheckerPlus
             dt.Interval = new TimeSpan(0, 0, 0, 1);
             dt.Start();
 
-            
+
             dt2.Tick += DispatcherTimer_Tick;
             dt2.Interval = new TimeSpan(0, 0, 0, 0, 500);
             dt2.Start();
@@ -71,7 +71,7 @@ namespace CheckerPlus
 
         private void Dt_Tick(object sender, EventArgs e)
         {
-            if(se<=0)
+            if (se <= 0)
             {
                 Button_Timer.IsHitTestVisible = true;
                 Button_Timer.Content = "Запустить";
@@ -103,19 +103,19 @@ namespace CheckerPlus
                 logs_text.Text = logs_text.Text + Environment.NewLine + logs[logs.Count() - 1];
                 dt2.Stop();
             }
-            o+=0.5f;
+            o += 0.5f;
         }
 
         private void Button3_Copy_Click(object sender, RoutedEventArgs e)
         {
-            GC.Collect();            
+            GC.Collect();
             mnw.Visibility = Visibility.Visible;
             mnw.Show();
             Visibility = Visibility.Hidden;
-            if(mnw.IsLoaded)
+            if (mnw.IsLoaded)
                 Close();
         }
-        
+
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -130,32 +130,22 @@ namespace CheckerPlus
             Iplogg();
         }
 
-#region Dll
+        #region Dll
 
         void LoadDll()
-        {                  
+        {
             dll_json = Dll.QuickLZ.QuickLZ.decompress(Properties.Resources.Newtonsoft_Json);
-            //dll_hooks = Properties.Resources.WindowsHookLib;
             AppDomain.CurrentDomain.AssemblyResolve += Load_Zip;
         }
 
         byte[] dll_json = null;
-        //byte[] dll_hooks = null;
 
         private Assembly Load_Zip(object sender, ResolveEventArgs args)
         {
-            //if (args.Name.Contains("WindowsHookLib"))
-            //    return Assembly.Load(dll_hooks);
-                //if(args.Name.Contains("Newtonsoft"))
-                return Assembly.Load(dll_json);
-
-            
-            //    return Assembly.Load(dll_key);
-
-            //return Assembly.Load(new byte[] { 0x00 });
+            return Assembly.Load(dll_json);
         }
 
-#endregion
+        #endregion
 
         List<string> logs = new List<string>()
         {
@@ -213,7 +203,7 @@ namespace CheckerPlus
 
         private void ChangeFon()
         {
-            if(d==1)
+            if (d == 1)
             {
                 if (Fon.Opacity < 1.0)
                 {
@@ -227,10 +217,10 @@ namespace CheckerPlus
                 if (Fon.Opacity > 0.8)
                 {
                     Fon.Opacity = Fon.Opacity - (0.3 / 10);
-                }else
+                }
+                else
                     dispatcherTimer.Stop();
             }
-            
         }
     }
 }

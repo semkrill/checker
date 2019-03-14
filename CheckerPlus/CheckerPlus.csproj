@@ -183,7 +183,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Security\Protection.cs" />
     <Compile Include="Steam\SteamConverter.cs" />
     <Compile Include="Steam\SteamGetProfile.cs" />
     <Compile Include="Steam\SteamPath.cs" />
