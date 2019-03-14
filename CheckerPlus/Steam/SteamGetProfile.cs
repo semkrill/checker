@@ -81,7 +81,7 @@ namespace CheckerPlus.Steam
 
 
 
-        readonly static private string steamkey = "E2B201588A38050766E40C679C50B3EA";
+        readonly static private string steamkey = "";
 
         public static FullState GetProfile(string id)
         {

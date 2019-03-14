@@ -154,9 +154,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Dll\HookKey\DesktopWPFAppLowLevelKeyboardHook.cs" />
+    <Compile Include="Dll\HookKey\Dll.HookKey.cs" />
     <Compile Include="Dll\HookKey\ManagedHooks\VirtualKeys.cs" />
-    <Compile Include="Dll\HookKey\UnsafeNativeMethods.cs" />
-    <Compile Include="Dll\HookKey\WindowsHookException.cs" />
     <Compile Include="Dll\MessageKey\KeyShow.cs" />
     <Compile Include="Dll\MessageKey\MessageKeyWindow.xaml.cs">
       <DependentUpon>MessageKeyWindow.xaml</DependentUpon>
@@ -184,6 +183,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Security\Protection.cs" />
     <Compile Include="Steam\SteamConverter.cs" />
     <Compile Include="Steam\SteamGetProfile.cs" />
     <Compile Include="Steam\SteamPath.cs" />
@@ -293,7 +293,7 @@
     <Resource Include="Resources\mouse.png" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Security\" />
+    <None Include="packapps.exe" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\steamico.png" />

@@ -113,16 +113,6 @@ namespace CheckerPlus.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Byte[].
         /// </summary>
-        public static byte[] packapps {
-            get {
-                object obj = ResourceManager.GetObject("packapps", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Поиск локализованного ресурса типа System.Byte[].
-        /// </summary>
         public static byte[] Roboto_Thin {
             get {
                 object obj = ResourceManager.GetObject("Roboto_Thin", resourceCulture);

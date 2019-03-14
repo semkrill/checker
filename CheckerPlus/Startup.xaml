@@ -126,17 +126,13 @@
                     <DropShadowEffect BlurRadius="2" ShadowDepth="2" Opacity="0.3"/>
                 </Rectangle.Effect>
             </Rectangle>
-
-            <Label x:Name="label1" Content="Реквезиты для пожертвований" HorizontalAlignment="Left" Margin="0,62,0,0" VerticalAlignment="Top" FontFamily="/CheckerPlus;component/MyFonts/#Roboto Thin" FontSize="16" Foreground="#FF001625"/>
-            <Label x:Name="label2" Content="QIWI" HorizontalAlignment="Left" Margin="44,96,0,0" VerticalAlignment="Top" FontFamily="Leelawadee UI" FontSize="14" Foreground="#FF001625"/>
-            <Label x:Name="label3" Content="+7 939 398 12 47" HorizontalAlignment="Left" Margin="84,96,0,0" VerticalAlignment="Top" FontFamily="Leelawadee UI" FontSize="14" Foreground="#FF001625"/>
-            <Label x:Name="label4" Content="Карта 4693 9575 5304 5191" HorizontalAlignment="Left" Margin="32,122,0,0" VerticalAlignment="Top" FontFamily="Leelawadee UI" FontSize="14" Foreground="#FF001625"/>
-            <Button Style="{StaticResource MaterialDesign}" x:Name="Button_Timer" HorizontalAlignment="Left" Margin="38,180,0,0" VerticalAlignment="Top" Width="168" Height="33" BorderBrush="#00000000" Click="Button3_Copy_Click" IsHitTestVisible="False" Background="#FF272727" Content="5" Foreground="White" FontFamily="/CheckerPlus;component/MyFonts/#Roboto Thin" FontSize="22" SnapsToDevicePixels="True" >
+            <Button Style="{StaticResource MaterialDesign}" x:Name="Button_Timer" HorizontalAlignment="Left" Margin="38,180,0,0" VerticalAlignment="Top" Width="168" Height="33" BorderBrush="#00000000" Click="Button3_Copy_Click" IsHitTestVisible="False" Background="#FF272727" Content="" Foreground="White" FontFamily="/CheckerPlus;component/MyFonts/#Roboto Thin" FontSize="22" SnapsToDevicePixels="True" >
                 <Button.Effect>
                     <DropShadowEffect Opacity="0.4" BlurRadius="2" ShadowDepth="2"/>
                 </Button.Effect>
             </Button>
-            <Label x:Name="label" Content="Програма запускается" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="22" Foreground="Black" FontFamily="/CheckerPlus;component/MyFonts/#Roboto Thin" Height="42" Width="236" Margin="-2,0,0,0"/>
+            <Label x:Name="label" Content="Програма запускается" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="22" Foreground="Black" FontFamily="/CheckerPlus;component/MyFonts/#Roboto Thin" Height="42" Width="236" Margin="0,40,0,0"/>
+            <ProgressBar HorizontalAlignment="Center" Height="23" Margin="0" VerticalAlignment="Center" Width="200" Foreground="#FF383838"/>
         </Grid>
 
 

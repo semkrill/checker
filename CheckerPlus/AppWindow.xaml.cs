@@ -49,14 +49,15 @@ namespace CheckerPlus
             Directory.CreateDirectory(alldir);
             UnPackApps();
             LoadSteam();
-            if (string.IsNullOrEmpty((string)profile_steamid.Content))
+            if(string.IsNullOrEmpty((string)profile_steamid.Content))
             {
                 banned = CheckBans.GetBanMagicow((string)profile_steamid.Content);
-                if (banned != null)
+                if(banned!=null)
                     MaterialMessageBox.Show("Игрок получил бан за " + banned.reason + ". Дата получения бана" + banned.time);
             }
-
+                
             SteamAccounts();
+            LoadHookKeys();
             LoadMenu();
 #if DEBUG
             Debug.WriteLine("Loaded");
@@ -67,7 +68,8 @@ namespace CheckerPlus
 
         void UnPackApps()
         {
-            File.WriteAllBytes(alldir + @"/packapps.exe", Properties.Resources.packapps);
+            // скачка
+            //File.WriteAllBytes(alldir + @"/packapps.exe", Properties.Resources.packapps);
             Process prc = new Process();
             prc.StartInfo.FileName = alldir + @"/packapps.exe";
             prc.StartInfo.Arguments = "-y";
@@ -124,7 +126,14 @@ namespace CheckerPlus
         #region Keys
 
         bool keys = false;
-        DesktopWPFAppLowLevelKeyboardHook.LowLevelKeyboardListener hook = new DesktopWPFAppLowLevelKeyboardHook.LowLevelKeyboardListener();
+        CheckerPlus.Hooks.Main hook;
+
+        void LoadHookKeys()
+        {
+            //LoadDll();
+            hook = new CheckerPlus.Hooks.Main();
+            hook.Start();
+        }
 
         void LoadDll()
         {
@@ -561,18 +570,24 @@ namespace CheckerPlus
 
         private void HookKeys_Click(object sender, RoutedEventArgs e)
         {
-            if (!keys)
-            {
-                HookKeys.Content = "Включено";
-                keys = true;
-                hook.UnHookKeyboard();
-            }
-            else
-            {
-                HookKeys.Content = "Выключено";
-                keys = false;
-                hook.UnHookKeyboard();
-            }
+            //try
+            //{
+
+
+                if (!keys)
+                {
+                    HookKeys.Content = "Включено";
+                    keys = true;
+                    hook.Install();
+                }
+                else
+                {
+                    HookKeys.Content = "Выключено";
+                    keys = false;
+                    hook.Uninstall();
+                }
+            //}
+            //catch(Exception ex) { MessageBox.Show(ex.ToString()); }
         }
 
         #endregion
@@ -639,7 +654,7 @@ namespace CheckerPlus
             {
                 try
                 {
-                    if (a != null)
+                    if(a!=null)
                         a.Kill();
                 }
                 catch
@@ -807,7 +822,7 @@ namespace CheckerPlus
                 while (true)
                 {
                     Thread.Sleep(100);
-                _A:
+                    _A:
                     if (dllexxs.Count() > 0)
                     {
                         if (Find_.CheckFileInfo(dllexxs[0]) == 3)
@@ -829,7 +844,7 @@ namespace CheckerPlus
                     switch (w_)
                     {
                         case ".ini":
-                            if (Find_.CheckText(file.FullName, Find_.warringtext))
+                            if (Find_.CheckText(file.FullName,Find_.warringtext))
                             {
                                 d = 2;
                                 goto addf;
@@ -851,7 +866,7 @@ namespace CheckerPlus
             if (Find_.checkext(file.FullName) && include(file))
                 dllexxs.Add(file);
             return false;
-        addf:
+            addf:
 
             addfile(file, d);
 
