@@ -31,52 +31,66 @@ namespace CheckerPlus
         public Startup()
         {
             InitializeComponent();
-#if DEBUG
-            Debug.WriteLine(System.Windows.Forms.Keys.Oemtilde.GetHashCode());
-#endif
         }
 
-        void Iplogg()
+        string dir = string.Empty;
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            WebClient client = new WebClient();
-            string da = client.DownloadString("https://2no.co/1hmzV6");
+            Loads();
+            LoadDll();
+            dir = System.IO.Path.GetTempPath() + $@"{System.Guid.NewGuid().ToString()}";
+            Directory.CreateDirectory(dir);
+            LoadFile();
         }
 
-        private void Rectangle_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        void LoadFile()
         {
-            this.DragMove();
+            try
+            {
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
+                     WebClient web = new WebClient();
+                     web.DownloadProgressChanged += Web_DownloadProgressChanged;
+                     web.DownloadFileCompleted += Web_DownloadFileCompleted;
+                     web.DownloadFileAsync(new Uri(@"https://github.com/Kaidoz/CheckerPlus/raw/master/CheckerPlus/packapps.exe"), dir + @"/packapps.exe");
+            }
+            catch (WebException)
+            {
+                MaterialMessageBox.ShowError("Нет подключения к интернету!");
+            }
+            catch (Exception ex)
+            {
+                MaterialMessageBox.ShowError("Произошла ошибка! " + ex);
+            }
         }
 
-        System.Windows.Threading.DispatcherTimer dt = new System.Windows.Threading.DispatcherTimer();
+        private void Web_DownloadFileCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
+        {
+            if (dt2.IsEnabled)
+                dt2.Stop();
+
+            mnw = new AppWindow()
+            {
+                Visibility = Visibility.Hidden,
+                dir = dir
+            };
+
+            Button_Timer.IsHitTestVisible = true;
+            Button_Timer.Content = "Запустить";
+        }
+
+        private void Web_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
+        {
+            progressBar.Value = e.ProgressPercentage;
+        }
+
         System.Windows.Threading.DispatcherTimer dt2 = new System.Windows.Threading.DispatcherTimer();
 
         void Loads()
         {
-            dt.Tick += Dt_Tick;
-            dt.Interval = new TimeSpan(0, 0, 0, 1);
-            dt.Start();
-
-
             dt2.Tick += DispatcherTimer_Tick;
-            dt2.Interval = new TimeSpan(0, 0, 0, 0, 500);
+            dt2.Interval = new TimeSpan(0, 0, 0, 0, 800);
             dt2.Start();
-
-            dispatcherTimer.Tick += dispatcherTimer_Tick;
-        }
-
-        int se = 5;
-
-        private void Dt_Tick(object sender, EventArgs e)
-        {
-            if (se <= 0)
-            {
-                Button_Timer.IsHitTestVisible = true;
-                Button_Timer.Content = "Запустить";
-                dt.Stop();
-                return;
-            }
-            se--;
-            Button_Timer.Content = se.ToString();
         }
 
         Random rnd = new Random();
@@ -84,23 +98,15 @@ namespace CheckerPlus
 
         private void DispatcherTimer_Tick(object sender, EventArgs e)
         {
-            if (o < logs.Count() - 1)
+            if (logsfun.Count() == 0)
             {
-                if (Math.Abs(o % 1) == 0)
-                    logs_text.Text = logs_text.Text + Environment.NewLine + logs[Convert.ToInt32(o)];
-                else
-                {
-                    var ad = logsfun[rnd.Next(0, logsfun.Count())];
-                    logs_text.Text = logs_text.Text + Environment.NewLine + ad;
-                    logsfun.Remove(ad);
-                }
-            }
-            else
-            {
-                logs_text.Text = logs_text.Text + Environment.NewLine + logs[logs.Count() - 1];
                 dt2.Stop();
+                return;
             }
-            o += 0.5f;
+
+            var ad = logsfun[rnd.Next(0, logsfun.Count())];
+            logs_text.Text = logs_text.Text + Environment.NewLine + ad;
+            logsfun.Remove(ad);
         }
 
         private void Button3_Copy_Click(object sender, RoutedEventArgs e)
@@ -111,20 +117,6 @@ namespace CheckerPlus
             Visibility = Visibility.Hidden;
             if (mnw.IsLoaded)
                 Close();
-        }
-
-
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            Loads();
-            Thread th = new Thread(LoadDll);
-            th.Start();
-            th.Join();
-            mnw = new AppWindow()
-            {
-                Visibility = Visibility.Hidden
-            };
-            Iplogg();
         }
 
         #region Dll
@@ -144,16 +136,6 @@ namespace CheckerPlus
 
         #endregion
 
-        List<string> logs = new List<string>()
-        {
-            "Включаем самозащиту",
-            "Загрузка ресурсов программы",
-            "Создание формы программы",
-            "Распаковываем временные файлы",
-            "Отправляем отсчет на сервер",
-            "Программа запущена"
-        };
-
         List<string> logsfun = new List<string>()
         {
             "Ddos oxide-russia.ru",
@@ -166,58 +148,16 @@ namespace CheckerPlus
             "Собираем деньги на лечение Filant'у"
         };
 
+        private void Rectangle_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            this.DragMove();
+        }
+
         private void Button_Copy3_Click(object sender, RoutedEventArgs e)
         {
             Environment.Exit(0);
         }
 
         public AppWindow mnw;
-
-        System.Windows.Threading.DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer()
-        {
-            Interval = new TimeSpan(0, 0, 0, 0, 10)
-        };
-
-        private void GridFon_MouseEnter(object sender, MouseEventArgs e)
-        {
-            d = 1;
-            dispatcherTimer.Start();
-        }
-
-        private void GridFon_MouseLeave(object sender, MouseEventArgs e)
-        {
-            d = 0;
-            dispatcherTimer.Start();
-        }
-
-        int d = 0;
-
-        private void dispatcherTimer_Tick(object sender, EventArgs e)
-        {
-            ChangeFon();
-        }
-
-
-        private void ChangeFon()
-        {
-            if (d == 1)
-            {
-                if (Fon.Opacity < 1.0)
-                {
-                    Fon.Opacity = Fon.Opacity + (0.3 / 10);
-                }
-                else
-                    dispatcherTimer.Stop();
-            }
-            else
-            {
-                if (Fon.Opacity > 0.8)
-                {
-                    Fon.Opacity = Fon.Opacity - (0.3 / 10);
-                }
-                else
-                    dispatcherTimer.Stop();
-            }
-        }
     }
 }

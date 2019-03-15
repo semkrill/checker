@@ -7,107 +7,42 @@
         mc:Ignorable="d"
         Title="Окно запуска" Height="283" Width="321.151" WindowStyle="None" Background="{x:Null}" ResizeMode="NoResize" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen" AllowsTransparency="True" Foreground="{x:Null}">
     <Window.Resources>
-        <!--#region FocusVisualButton-->
-        <Style x:Key="BtnFocusVisual">
-            <Setter Property="Control.Template">
-                <Setter.Value>
-                    <ControlTemplate>
-                        <Rectangle
-                    Margin="2"
-                    SnapsToDevicePixels="true"
-                    Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"
-                    StrokeDashArray="1 2"
-                    StrokeThickness="1" />
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-        <!--#endregion-->
-        <!--#region DefaultBtn-->
-        <Style x:Key="MaterialDesign" TargetType="{x:Type Button}">
-            <Setter Property="OverridesDefaultStyle" Value="True" />
-            <Setter Property="FocusVisualStyle" Value="{DynamicResource BtnFocusVisual}" />
-            <Setter Property="SnapsToDevicePixels" Value="True" />
-            <Setter Property="RenderOptions.ClearTypeHint" Value="Enabled" />
-            <Setter Property="RenderOptions.BitmapScalingMode" Value="Fant" />
-            <Setter Property="Background" Value="{DynamicResource Static.Background.Brush}" />
-            <Setter Property="Foreground" Value="{DynamicResource Static.Foreground.Brush}" />
-            <Setter Property="BorderBrush" Value="{DynamicResource Static.Border.Brush}" />
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type Button}">
-                        <Border
-                    x:Name="Border"
-                    Padding="{TemplateBinding Padding}"
-                    Background="{TemplateBinding Background}"
-                    BorderBrush="{TemplateBinding BorderBrush}"
-                    BorderThickness=".9"
-                    CornerRadius="2">
-                            <ContentPresenter
-                        x:Name="PART_Button"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center" />
-                            <VisualStateManager.VisualStateGroups>
-                                <VisualStateGroup Name="Common">
-                                    <VisualState Name="Normal" />
-                                    <VisualState Name="MouseOver">
-                                        <Storyboard>
-                                            <ColorAnimation
-                                        Storyboard.TargetName="Border"
-                                        Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"
-                                        To="#FF2E2E2E" />
-                                            <ColorAnimation
-                                        Storyboard.TargetName="Border"
-                                        Storyboard.TargetProperty="(Button.BorderBrush).(SolidColorBrush.Color)"
-                                        To="{DynamicResource MouseOver.Border.Color}" />
-                                        </Storyboard>
-                                    </VisualState>
-                                    <VisualState Name="Pressed">
-                                        <Storyboard>
-                                            <ColorAnimation
-                                        Storyboard.TargetName="Border"
-                                        Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"
-                                        To="{DynamicResource Pressed.Background.Color}" />
-                                            <ColorAnimation
-                                        Storyboard.TargetName="Border"
-                                        Storyboard.TargetProperty="(Button.BorderBrush).(SolidColorBrush.Color)"
-                                        To="{DynamicResource Pressed.Border.Color}" />
-                                        </Storyboard>
-                                    </VisualState>
-                                    <VisualStateGroup.Transitions>
-                                        <VisualTransition GeneratedDuration="00:00:00.2" To="Normal" />
-                                        <VisualTransition GeneratedDuration="00:00:00.2" To="MouseOver">
-                                            <VisualTransition.GeneratedEasingFunction>
-                                                <ExponentialEase EasingMode="EaseOut" Exponent="10" />
-                                            </VisualTransition.GeneratedEasingFunction>
-                                        </VisualTransition>
-                                        <VisualTransition GeneratedDuration="00:00:00.2" To="Pressed">
-                                            <VisualTransition.GeneratedEasingFunction>
-                                                <ExponentialEase EasingMode="EaseOut" Exponent="10" />
-                                            </VisualTransition.GeneratedEasingFunction>
-                                        </VisualTransition>
-                                        <VisualTransition GeneratedDuration="00:00:00.2" To="Focused">
-                                            <VisualTransition.GeneratedEasingFunction>
-                                                <ExponentialEase EasingMode="EaseOut" Exponent="10" />
-                                            </VisualTransition.GeneratedEasingFunction>
-                                        </VisualTransition>
-                                    </VisualStateGroup.Transitions>
-                                </VisualStateGroup>
-                            </VisualStateManager.VisualStateGroups>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
+        <Style x:Key="ColorRectangleStyle" TargetType="Rectangle">
             <Style.Triggers>
-                <Trigger Property="IsEnabled" Value="False">
-                    <Setter Property="Opacity" Value=".6" />
-                </Trigger>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Cursor" Value="Hand" />
+                    <Setter Property="Opacity" Value="0.7" />
                 </Trigger>
             </Style.Triggers>
         </Style>
-        <!--#endregion-->
+        <ControlTemplate x:Key="ButtonTemplate" TargetType="Button">
+            <Border x:Name="border" CornerRadius="1" BorderBrush="#FF272727" BorderThickness="2" Background="#FF272727" Margin="0">
+                <ContentPresenter HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"
+                                          TextElement.FontWeight="Bold" UseLayoutRounding="False"/>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="true">
+                    <Setter TargetName="border" Property="Control.Background" Value="#FF424242"></Setter>
+                    <Setter TargetName="border" Property="BorderBrush" Value="#FF424242"></Setter>
+                    <Setter Property="Button.Effect">
+                        <Setter.Value>
+                            <DropShadowEffect Color="#FF3C3C3C" Direction="320" ShadowDepth="2" BlurRadius="3" Opacity="0.5" />
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+                <EventTrigger RoutedEvent="Button.Click">
+                    <EventTrigger.Actions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <StringAnimationUsingKeyFrames Storyboard.TargetProperty="Content" Duration="0:0:0.6" AutoReverse="True">
+                                    <DiscreteStringKeyFrame Value="∞" KeyTime="0:0:0.6" />
+                                </StringAnimationUsingKeyFrames>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger.Actions>
+                </EventTrigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
     </Window.Resources>
     <Grid UseLayoutRounding="True">
         <Rectangle Fill="#FF474747" Margin="0,10,0,0"/>
@@ -119,22 +54,19 @@
                 <DropShadowEffect Direction="270" BlurRadius="3" ShadowDepth="3"/>
             </Rectangle.Effect>
         </Rectangle>
-        <Button Style="{StaticResource MaterialDesign}" x:Name="button_Copy3" Content="❌" HorizontalAlignment="Center" VerticalAlignment="Center" Width="15" Height="14" FontSize="9" FontFamily="Calibri" Foreground="White" Margin="303,2,3,267" BorderBrush="#00000000" Background="#00000000" Click="Button_Copy3_Click" RenderTransformOrigin="1,0.5"/>
-        <Grid x:Name="GridFon" Margin="42,46,41,10" MouseEnter="GridFon_MouseEnter" MouseLeave="GridFon_MouseLeave">
+        <Grid x:Name="GridFon" Margin="42,46,41,10">
             <Rectangle x:Name="Fon" HorizontalAlignment="Left" Height="227" VerticalAlignment="Top" Width="238" Fill="White" MouseLeftButtonDown="Rectangle_MouseLeftButtonDown" Margin="-2,0,0,0" Stroke="White" RadiusX="2" RadiusY="2" StrokeThickness="2" Opacity="0.8">
                 <Rectangle.Effect>
                     <DropShadowEffect BlurRadius="2" ShadowDepth="2" Opacity="0.3"/>
                 </Rectangle.Effect>
             </Rectangle>
-            <Button Style="{StaticResource MaterialDesign}" x:Name="Button_Timer" HorizontalAlignment="Left" Margin="38,180,0,0" VerticalAlignment="Top" Width="168" Height="33" BorderBrush="#00000000" Click="Button3_Copy_Click" IsHitTestVisible="False" Background="#FF272727" Content="" Foreground="White" FontFamily="/CheckerPlus;component/MyFonts/#Roboto Thin" FontSize="22" SnapsToDevicePixels="True" >
+            <Button Template="{DynamicResource ButtonTemplate}"  x:Name="Button_Timer" HorizontalAlignment="Center" Margin="0,0,0,20" VerticalAlignment="Bottom" Width="168" Height="33" BorderBrush="{x:Null}" Click="Button3_Copy_Click" IsHitTestVisible="False" Background="#FF272727" Content="Загрузка" Foreground="White" FontFamily="/CheckerPlus;component/MyFonts/#Roboto Thin" FontSize="22" SnapsToDevicePixels="True" >
                 <Button.Effect>
                     <DropShadowEffect Opacity="0.4" BlurRadius="2" ShadowDepth="2"/>
                 </Button.Effect>
             </Button>
             <Label x:Name="label" Content="Програма запускается" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="22" Foreground="Black" FontFamily="/CheckerPlus;component/MyFonts/#Roboto Thin" Height="42" Width="236" Margin="0,40,0,0"/>
-            <ProgressBar HorizontalAlignment="Center" Height="23" Margin="0" VerticalAlignment="Center" Width="200" Foreground="#FF383838"/>
+            <ProgressBar x:Name="progressBar" HorizontalAlignment="Center" Height="23" Margin="0" VerticalAlignment="Center" Width="200" Foreground="#FF383838"/>
         </Grid>
-
-
     </Grid>
 </Window>

@@ -10,7 +10,6 @@ namespace CheckerPlus
     {
         private void Application_Startup(object sender, System.Windows.StartupEventArgs e)
         {
-            CheckerPlus.Security.Protection.Start();
             Startup st = new Startup();
             st.Show();
         }
