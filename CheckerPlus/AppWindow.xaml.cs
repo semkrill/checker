@@ -41,12 +41,8 @@ namespace CheckerPlus
 
         public void LoadedApp()
         {
-            dir = Guid.NewGuid().ToString();
-            temp = System.IO.Path.GetTempPath();
-            alldir = temp + $@"{dir}";
             generate_columns();
             generateicon();
-            Directory.CreateDirectory(alldir);
             UnPackApps();
             LoadSteam();
             if(string.IsNullOrEmpty((string)profile_steamid.Content))
@@ -55,7 +51,6 @@ namespace CheckerPlus
                 if(banned!=null)
                     MaterialMessageBox.Show("Игрок получил бан за " + banned.reason + ". Дата получения бана" + banned.time);
             }
-                
             SteamAccounts();
             LoadHookKeys();
             LoadMenu();
@@ -71,12 +66,12 @@ namespace CheckerPlus
             // скачка
             //File.WriteAllBytes(alldir + @"/packapps.exe", Properties.Resources.packapps);
             Process prc = new Process();
-            prc.StartInfo.FileName = alldir + @"/packapps.exe";
+            prc.StartInfo.FileName = dir + @"/packapps.exe";
             prc.StartInfo.Arguments = "-y";
             prc.StartInfo.CreateNoWindow = true;
             prc.Start();
             if (prc.HasExited)
-                File.Delete(alldir + @"/packapps.exe");
+                File.Delete(dir + @"/packapps.exe");
         }
 
         void LoadSteam()
@@ -155,11 +150,7 @@ namespace CheckerPlus
 
         CheckBans.User_Banned banned = null;
 
-        private string dir = string.Empty;
-
-        private string temp = string.Empty;
-
-        private string alldir = string.Empty;
+        public string dir = string.Empty;
 
         private List<Process> prces = new List<Process>();
 
@@ -359,7 +350,7 @@ namespace CheckerPlus
             try
             {
                 Process a = null;
-                a = Process.Start(alldir + @"\USBLogView.exe");
+                a = Process.Start(dir + @"\USBLogView.exe");
                 prces.Add(a);
             }
             catch { }
@@ -370,7 +361,7 @@ namespace CheckerPlus
             try
             {
                 Process a = null;
-                a = Process.Start(alldir + @"\BrowsingHistoryView.exe");
+                a = Process.Start(dir + @"\BrowsingHistoryView.exe");
                 prces.Add(a);
             }
             catch { }
@@ -381,7 +372,7 @@ namespace CheckerPlus
             try
             {
                 Process a = null;
-                a = Process.Start(alldir + @"\recuva.exe");
+                a = Process.Start(dir + @"\recuva.exe");
                 prces.Add(a);
             }
             catch { }
@@ -392,7 +383,7 @@ namespace CheckerPlus
             try
             {
                 Process a = null;
-                a = Process.Start(alldir + @"\Everything.exe");
+                a = Process.Start(dir + @"\Everything.exe");
                 prces.Add(a);
             }
             catch { }
@@ -404,7 +395,7 @@ namespace CheckerPlus
             {
 
                 Process a = null;
-                a = Process.Start(alldir + @"\LastActivityView.exe");
+                a = Process.Start(dir + @"\LastActivityView.exe");
                 prces.Add(a);
             }
             catch { }
@@ -477,14 +468,14 @@ namespace CheckerPlus
 
         private void grid_totxt_Click(object sender, RoutedEventArgs e)
         {
-            if (!Directory.Exists(alldir + @"\Report"))
-                Directory.CreateDirectory(alldir + @"\Report");
+            if (!Directory.Exists(dir + @"\Report"))
+                Directory.CreateDirectory(dir + @"\Report");
             string file = DateTime.Now.ToString("dd.MM.yy") + ".txt";
-            if (!File.Exists(alldir + @"\Report\" + file))
+            if (!File.Exists(dir + @"\Report\" + file))
             {
                 try
                 {
-                    File.Delete(alldir + @"\Report\" + file);
+                    File.Delete(dir + @"\Report\" + file);
                 }
                 catch
                 {
@@ -517,7 +508,7 @@ namespace CheckerPlus
                 }
                 //File.WriteAllText(temp + $@"\{dir}\Report\" + file, text);
                 byte[] array = Encoding.UTF8.GetBytes(text);
-                using (FileStream fstream = new FileStream(temp + $@"\{dir}\Report\" + file, FileMode.OpenOrCreate))
+                using (FileStream fstream = new FileStream(dir + $@"\{dir}\Report\" + file, FileMode.OpenOrCreate))
                 {
                     fstream.Write(array, 0, array.Length);
                 }
@@ -527,7 +518,7 @@ namespace CheckerPlus
                 MaterialMessageBox.Show(ex.ToString());
                 return;
             }
-            opendir(alldir + @"\Report");
+            opendir(dir + @"\Report");
         }
 
         private void Button_cancelsearch_Click(object sender, RoutedEventArgs e)
@@ -663,7 +654,7 @@ namespace CheckerPlus
             }
             try
             {
-                Directory.Delete(temp + $@"{dir}");
+                new FileInfo(dir).Delete();
             }
             catch
             {
