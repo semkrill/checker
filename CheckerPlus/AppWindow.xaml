@@ -209,7 +209,7 @@
                     </TransformGroup>
                 </Rectangle.RenderTransform>
             </Rectangle>
-            <Label x:Name="label" Content="v 1.2.2.3 build 8" HorizontalAlignment="Left" Margin="717,436,0,-32" VerticalAlignment="Top" Width="83" FontFamily="/CheckerPlus;component/MyFonts/#Roboto Thin" FontSize="11" Foreground="White" SnapsToDevicePixels="True"/>
+            <Label x:Name="label" Content="v 1.2.2.2 build 7" HorizontalAlignment="Left" Margin="717,436,0,-32" VerticalAlignment="Top" Width="83" FontFamily="/CheckerPlus;component/MyFonts/#Roboto Thin" FontSize="11" Foreground="White" SnapsToDevicePixels="True"/>
             <Rectangle Fill="#FF272727" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="800" MouseLeftButtonDown="Rectangle_MouseLeftButtonDown" Stroke="#FF272727" StrokeThickness="4" RadiusY="2" RadiusX="2" Stretch="UniformToFill">
                 <Rectangle.Effect>
                     <DropShadowEffect Opacity="0.2" Direction="270" BlurRadius="3" ShadowDepth="3"/>
@@ -288,41 +288,31 @@
                 </Rectangle.Effect>
             </Rectangle>
             <Grid x:Name="Soft" IsHitTestVisible="True" Visibility="Hidden">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
-                <Button Style="{StaticResource MaterialDesign}"  x:Name="Button_LastActivity" HorizontalAlignment="Center" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Width="140" Height="44" BorderBrush="#00000000" Click="lastactivity_Click" Background="#FF363636" Foreground="White">
+                <Button Style="{StaticResource MaterialDesign}"  x:Name="Button_LastActivity" HorizontalAlignment="Left" Margin="21,22,0,0" VerticalAlignment="Top" Width="140" Height="44" BorderBrush="#00000000" Click="lastactivity_Click" Background="#FF363636" Foreground="White">
                     <Button.Effect>
                         <DropShadowEffect Opacity="0.4" BlurRadius="2" ShadowDepth="2"/>
                     </Button.Effect>
                     <TextBlock x:Name="textBlock2" TextWrapping="Wrap" TextAlignment="Center" Width="79" Height="36" FontFamily="Material Sans" TextDecorations="{x:Null}" IsEnabled="False" Foreground="White" FontSize="13" HorizontalAlignment="Center" VerticalAlignment="Center"><Run Text="Последняя"/><LineBreak/><Run Text="активность"/><LineBreak/><Run/><LineBreak/><Run Text="в"/><LineBreak/><Run Text=""/><LineBreak/><Run/><Run Text=" "/><LineBreak/><Run/></TextBlock>
                 </Button>
-                <Button Style="{StaticResource MaterialDesign}"  x:Name="Button_historydevviews" HorizontalAlignment="Center" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center"  Width="140" Height="44" BorderBrush="Transparent" Click="historydeviews_Click" Background="#FF363636" Foreground="White">
+                <Button Style="{StaticResource MaterialDesign}"  x:Name="Button_historydevviews" HorizontalAlignment="Left" Margin="366,22,0,0" VerticalAlignment="Top" Width="140" Height="44" BorderBrush="Transparent" Click="historydeviews_Click" Background="#FF363636" Foreground="White">
                     <Button.Effect>
                         <DropShadowEffect Opacity="0.4" BlurRadius="2" ShadowDepth="2"/>
                     </Button.Effect>
                     <TextBlock x:Name="textBlock1" TextWrapping="Wrap" TextAlignment="Center" Width="79" Height="36" FontFamily="Material Sans" TextDecorations="{x:Null}" IsEnabled="False" Foreground="White" Text="История устройств" FontSize="13"/>
                 </Button>
-                <Button Style="{StaticResource MaterialDesign}"  x:Name="Button_historybrowserviews" HorizontalAlignment="Center" Grid.Row="0" Grid.Column="2" VerticalAlignment="Center"  Width="140" Height="44" BorderBrush="Transparent" Click="historybrowsers_Click" Background="#FF363636" Foreground="White">
+                <Button Style="{StaticResource MaterialDesign}"  x:Name="Button_historybrowserviews" HorizontalAlignment="Left" Margin="194,22,0,0" VerticalAlignment="Top" Width="140" Height="44" BorderBrush="Transparent" Click="historybrowsers_Click" Background="#FF363636" Foreground="White">
                     <Button.Effect>
                         <DropShadowEffect Opacity="0.4" BlurRadius="2" ShadowDepth="2"/>
                     </Button.Effect>
                     <TextBlock x:Name="textBlock3" TextWrapping="Wrap" TextAlignment="Center" Width="79" Height="36" FontFamily="Material Sans" TextDecorations="{x:Null}" IsEnabled="False" Foreground="White" FontSize="13"><Run Text="История "/><Run Text="бразуров"/></TextBlock>
                 </Button>
-                <Button Style="{StaticResource MaterialDesign}"  x:Name="Button_Recuva" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center"  Width="140" Height="44" BorderBrush="#00000000" Click="Recuva_Click" Background="#FF363636" Foreground="White">
+                <Button Style="{StaticResource MaterialDesign}"  x:Name="Button_Recuva" HorizontalAlignment="Left" Margin="21,86,0,0" VerticalAlignment="Top" Width="140" Height="44" BorderBrush="#00000000" Click="Recuva_Click" Background="#FF363636" Foreground="White">
                     <Button.Effect>
                         <DropShadowEffect Opacity="0.4" BlurRadius="2" ShadowDepth="2"/>
                     </Button.Effect>
                     <TextBlock x:Name="textBlock4" TextWrapping="Wrap" TextAlignment="Center" Width="118" Height="36" FontFamily="Material Sans" TextDecorations="{x:Null}" IsEnabled="False" Foreground="White" FontSize="13"><Run Text="Просмотр "/><LineBreak/><Run Text="удаленных файлов"/><LineBreak/><Run/></TextBlock>
                 </Button>
-                <Button Style="{StaticResource MaterialDesign}"  x:Name="Button_Everything" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center"  Width="140" Height="44" BorderBrush="Transparent" Click="Everything_Click" Background="#FF363636" Foreground="White">
+                <Button Style="{StaticResource MaterialDesign}"  x:Name="Button_Everything" HorizontalAlignment="Left" Margin="194,86,0,0" VerticalAlignment="Top" Width="140" Height="44" BorderBrush="Transparent" Click="Everything_Click" Background="#FF363636" Foreground="White">
                     <Button.Effect>
                         <DropShadowEffect Opacity="0.4" BlurRadius="2" ShadowDepth="2"/>
                     </Button.Effect>
@@ -330,35 +320,25 @@
                 </Button>
             </Grid>
             <Grid x:Name="Other" Margin="0,0,0,-1" ScrollViewer.VerticalScrollBarVisibility="Hidden" Visibility="Hidden">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
-                <Button Style="{StaticResource MaterialDesign}"  x:Name="checkpress" Width="140" Height="44" BorderBrush="#00000000" Click="checkpress_Click" Background="#FF363636" HorizontalAlignment="Center" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Foreground="White" FontFamily="Material Sans">
+                <Button Style="{StaticResource MaterialDesign}"  x:Name="checkpress" HorizontalAlignment="Left" VerticalAlignment="Top" Width="140" Height="44" BorderBrush="#00000000" Click="checkpress_Click" Background="#FF363636" Margin="21,22,0,0" HorizontalContentAlignment="Center" Foreground="White" FontFamily="Material Sans">
                     <Button.Effect>
                         <DropShadowEffect Opacity="0.4" BlurRadius="2" ShadowDepth="2"/>
                     </Button.Effect>
                     <TextBlock x:Name="textBlock5" TextWrapping="Wrap" TextAlignment="Center" Width="79" Height="36" FontFamily="Material Sans" TextDecorations="{x:Null}" IsEnabled="False" Foreground="White" FontSize="14"><Run Text="Проверка клавиш"/><LineBreak/><Run/></TextBlock>
                 </Button>
-                <Button Style="{StaticResource MaterialDesign}"  x:Name="checkmouse" HorizontalAlignment="Center" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Width="140" Height="44" BorderBrush="Transparent" Click="checkmouse_Click" Background="#FF363636" Foreground="White" FontFamily="Material Sans">
+                <Button Style="{StaticResource MaterialDesign}"  x:Name="checkmouse" HorizontalAlignment="Left" Margin="194,22,0,0" VerticalAlignment="Top" Width="140" Height="44" BorderBrush="Transparent" Click="checkmouse_Click" Background="#FF363636" Foreground="White" FontFamily="Material Sans">
                     <Button.Effect>
                         <DropShadowEffect Opacity="0.4" BlurRadius="2" ShadowDepth="2"/>
                     </Button.Effect>
                     <TextBlock x:Name="textBlock6" TextWrapping="Wrap" TextAlignment="Center" Width="79" Height="36" FontFamily="Material Sans" TextDecorations="{x:Null}" IsEnabled="False" Foreground="White" Text="Проверка мыши" FontSize="14"/>
                 </Button>
-                <Button Style="{StaticResource MaterialDesign}"  x:Name="button_hiddenfiles" HorizontalAlignment="Center" Grid.Row="0" Grid.Column="2" VerticalAlignment="Center" Width="140" Height="44" BorderBrush="Transparent" Click="hiddenfiles_Click" Background="#FF363636" Foreground="White" FontFamily="Material Sans">
+                <Button Style="{StaticResource MaterialDesign}"  x:Name="button_hiddenfiles" HorizontalAlignment="Left" Margin="366,22,0,0" VerticalAlignment="Top" Width="140" Height="44" BorderBrush="Transparent" Click="hiddenfiles_Click" Background="#FF363636" Foreground="White" FontFamily="Material Sans">
                     <Button.Effect>
                         <DropShadowEffect Opacity="0.4" BlurRadius="2" ShadowDepth="2"/>
                     </Button.Effect>
                     <TextBlock x:Name="textBlock10" TextWrapping="Wrap" TextAlignment="Center" Width="100" Height="36" FontFamily="Material Sans" TextDecorations="{x:Null}" IsEnabled="False" Foreground="White" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Center"><Run Text="Скрытые файлы"/><LineBreak/><Run Text="рабочего стола"/></TextBlock>
                 </Button>
-                <Button Style="{StaticResource MaterialDesign}"  x:Name="Button_sites" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Width="140" Height="44" BorderBrush="#00000000" Click="Button_sites_Click" Background="#FF363636" HorizontalContentAlignment="Center" Foreground="White" FontFamily="Material Sans">
+                <Button Style="{StaticResource MaterialDesign}"  x:Name="Button_sites" HorizontalAlignment="Left" VerticalAlignment="Top" Width="140" Height="44" BorderBrush="#00000000" Click="Button_sites_Click" Background="#FF363636" HorizontalContentAlignment="Center" Foreground="White" FontFamily="Material Sans" Margin="21,86,0,0">
                     <Button.Effect>
                         <DropShadowEffect Opacity="0.4" BlurRadius="2" ShadowDepth="2"/>
                     </Button.Effect>
@@ -383,7 +363,7 @@
                 <Button Style="{StaticResource MaterialDesign}"  x:Name="button_startfind" Content="Начать поиск" HorizontalAlignment="Center" VerticalAlignment="Center" Width="146" Height="38" FontSize="20" FontFamily="/CheckerPlus;component/MyFonts/#Roboto Black" Foreground="White" Margin="202,117,180,151" BorderBrush="#00D3D3D3" Background="#FF363636" Click="button_startfind_Click"/>
 
             </Grid>
-            <Grid x:Name="Main" d:IsHidden="True">
+            <Grid x:Name="Main">
                 <Label x:Name="label1" Content="Главное" HorizontalAlignment="Left" Margin="210,0,0,0" VerticalAlignment="Top" FontFamily="Consolas" FontSize="24" Foreground="#FF272727" Background="White" SnapsToDevicePixels="True" FontWeight="Bold"/>
                 <TextBlock x:Name="textBlock8" HorizontalAlignment="Left" Margin="27,39,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="191" Width="480" Foreground="#FF232323" FontFamily="./#Roboto Light" FontSize="20" TextDecorations="{x:Null}" SnapsToDevicePixels="True"><Run Text="CheckerPlus - программа "/><Run Text="для поиска макросов"/><Run Text="/"/><Run Text="чито"/><Run Text="в."/><LineBreak/><Run Text="Программа имеет в себе "/><Run Text="поиск по маскам"/><Run Text=","/><Run Text=" несколько программ и дополнительные функциию"/><Run Text="."/><LineBreak/><Run Text="Программа распространяется исключительно "/><Run Text="бесплатно"/><Run Text="."/><Run Text=" "/><LineBreak/><Run Text="Возможно "/><Run Text="коммерческое"/><Run Text=" сотрудничество."/></TextBlock>
                 <TextBlock x:Name="textBlock9" HorizontalAlignment="Center" Margin="191,235,178,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="#FF383838" FontFamily="/CheckerPlus;component/MyFonts/#Roboto Thin" Height="26" Width="159" FontSize="20"><Run Text="Обратная связь"/><LineBreak/><Run/></TextBlock>

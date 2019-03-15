@@ -79,6 +79,8 @@ namespace CheckerPlus.Steam
             public Response response { get; set; }
         }
 
+
+
         readonly static private string steamkey = "";
 
         public static FullState GetProfile(string id)
