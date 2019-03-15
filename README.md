@@ -12,5 +12,5 @@
 ### Рекомендации перед работой
 	Перед работой нужно внести свой steam api ключ.  
 	Steam -> SteamGetProfile -> steamkey  
-	!(image.prntscr.com/image/rRUqsUSLTGafO_z_dioi4g.png)
+	!(https://i4.wampi.ru/2019/03/15/Screenshot_8.png)
 
