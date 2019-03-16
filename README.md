@@ -1,6 +1,7 @@
 # CheckerPlus
-Программа для поиска чит-программ и макросов.
-!(https://i4.wampi.ru/2019/03/15/Screenshot_8.png)
+Программа для поиска чит-программ и макросов.  
+![Screenshot_8](https://user-images.githubusercontent.com/33166919/54470582-57dbf480-47bb-11e9-81e1-5e3e8ffd04b2.png)
+
 
 ### Достоинства программы: 
 	Маленький вес  
