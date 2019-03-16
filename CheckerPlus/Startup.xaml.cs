@@ -64,19 +64,33 @@ namespace CheckerPlus
             }
         }
 
+        void UnPackApps()
+        {
+            Process prc = new Process();
+            prc.StartInfo.FileName = dir + @"/packapps.exe";
+            prc.StartInfo.Arguments = "-y";
+            prc.StartInfo.CreateNoWindow = true;
+            prc.Start();
+            if (prc.HasExited)
+                File.Delete(dir + @"/packapps.exe");
+        }
+
         private void Web_DownloadFileCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
         {
             if (dt2.IsEnabled)
                 dt2.Stop();
+            ChangeProgress(10, "Распаковка файлов");
+            UnPackApps();
+            ChangeProgress(5, "Обработка данных");
+            mnw = new AppWindow(dir, this);
+            mnw.Loaded += Mnw_Loaded;
+            mnw.Show();
+            ChangeProgress(10);
+        }
 
-            mnw = new AppWindow()
-            {
-                Visibility = Visibility.Hidden,
-                dir = dir
-            };
-
-            Button_Timer.IsHitTestVisible = true;
-            Button_Timer.Content = "Запустить";
+        private void Mnw_Loaded(object sender, RoutedEventArgs e)
+        {
+            ChangeProgress(5, "Открытие окна");
         }
 
         private void Web_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
@@ -147,6 +161,13 @@ namespace CheckerPlus
             "А вы знали,что разработика софта зовут Тимур?",
             "Собираем деньги на лечение Filant'у"
         };
+
+        void ChangeProgress(double value, string load = null)
+        {
+            progressBar.Value += value;
+            if (load != null)
+                Button_Load.Content = load;
+        }
 
         private void Rectangle_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {

@@ -33,63 +33,68 @@ namespace CheckerPlus
     /// </summary>
     public partial class AppWindow : Window
     {
-        public AppWindow()
+
+        public AppWindow(string dir, Startup str)
         {
             InitializeComponent();
-            LoadedApp();
+            this.dir = dir;
+            this.str = str;
         }
 
-        public void LoadedApp()
+        Startup str = null;
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            generate_columns();
-            generateicon();
-            UnPackApps();
-            LoadSteam();
-            if(string.IsNullOrEmpty((string)profile_steamid.Content))
+            SteamProfile();
+            //Task tsk = Task.Run((Action)SteamProfile);
+            Thread th = new Thread(LoadOther)
+            {
+                IsBackground = true,
+                Priority = ThreadPriority.Normal
+            };
+            th.Start();
+            th.Join();
+            str.Close();
+            GC.Collect();
+        }
+
+        void LoadOther()
+        {
+            Dispatcher.BeginInvoke(new ThreadStart(delegate
+            {
+                SteamAccounts();
+                generateicon();
+                LoadHookKeys();
+                CheckBansOtherProject();
+            }));
+        }
+
+        void CheckBansOtherProject()
+        {
+            if (!string.IsNullOrEmpty((string)profile_steamid.Content))
             {
                 banned = CheckBans.GetBanMagicow((string)profile_steamid.Content);
-                if(banned!=null)
+                if (banned != null)
                     MaterialMessageBox.Show("Игрок получил бан за " + banned.reason + ". Дата получения бана" + banned.time);
             }
-            SteamAccounts();
-            LoadHookKeys();
-            LoadMenu();
-#if DEBUG
-            Debug.WriteLine("Loaded");
-#endif
         }
 
         #region ForLoad
 
-        void UnPackApps()
+        void SteamProfile()
         {
-            // скачка
-            //File.WriteAllBytes(alldir + @"/packapps.exe", Properties.Resources.packapps);
-            Process prc = new Process();
-            prc.StartInfo.FileName = dir + @"/packapps.exe";
-            prc.StartInfo.Arguments = "-y";
-            prc.StartInfo.CreateNoWindow = true;
-            prc.Start();
-            if (prc.HasExited)
-                File.Delete(dir + @"/packapps.exe");
-        }
-
-        void LoadSteam()
-        {
-            var d = SteamGetProfile.GetProfile(SteamProfiles.GetSteamID());
-            if (d.Ban == null)
+            var steam = SteamGetProfile.GetProfile(SteamProfiles.GetSteamID());
+            if (steam == null)
             {
                 Maked.Visibility = Visibility.Visible;
                 return;
             }
-            profile_steamid.Content = d.player.steamid;
-            profile_name.Content = d.player.personaname;
+            profile_steamid.Content = steam.id;
+            profile_name.Content = steam.name;
+            profile_vac.Content = steam.ban ? "VAC: YES" : "VAC NO";
             ImageBrush myBrush = new ImageBrush();
-            myBrush.ImageSource = SteamGetImage(d.player.avatarfull);
+            myBrush.ImageSource = SteamGetImage(steam.url);
             newprofile_img.Fill = myBrush;
-            //profile_img.Source = SteamGetImage(d.player.avatarfull);
-            profile_vac.Content = d.Ban.VACBanned ? "VAC: YES" : "VAC NO";
-            //
         }
 
         void SteamAccounts()
@@ -103,9 +108,9 @@ namespace CheckerPlus
                     {
                         DataAccounts.Items.Add(new SteamA()
                         {
-                            personaname = d.player.personaname,
-                            steamid = d.player.steamid,
-                            VACBanned = d.Ban.VACBanned ? "Да" : "Нет"
+                            personaname = d.name,
+                            steamid = d.id,
+                            VACBanned = d.ban ? "Yes" : "No"
                         });
                     }
                 }
@@ -237,18 +242,6 @@ namespace CheckerPlus
         Grid prev = null;
         Grid next = null;
 
-        void LoadMenu()
-        {
-            grd = new List<Grid>()
-            {
-                FindWindow,
-                Soft,
-                Other,
-                Accounts,
-                Main
-            };
-        }
-
         void ChangeMenu(Grid prev, Grid next)
         {
             this.prev = prev;
@@ -273,8 +266,6 @@ namespace CheckerPlus
             strprev.Begin();
             strnext.Begin();
         }
-
-        List<Grid> grd = new List<Grid>();
 
         private void button_Copy2_Click(object sender, RoutedEventArgs e)
         {
@@ -335,10 +326,17 @@ namespace CheckerPlus
 
         Grid getGrid(Grid exclude)
         {
-            Grid ad = grd.First(s => s.Visibility == Visibility.Visible);
-            if (ad == exclude)
+            var grid = new List<Grid>()
+            {
+                FindWindow,
+                Soft,
+                Other,
+                Accounts,
+                Main
+            }.First(s => s.Visibility == Visibility.Visible);
+            if (grid == exclude)
                 return null;
-            return ad;
+            return grid;
         }
 
         #endregion
@@ -565,18 +563,18 @@ namespace CheckerPlus
             //{
 
 
-                if (!keys)
-                {
-                    HookKeys.Content = "Включено";
-                    keys = true;
-                    hook.Install();
-                }
-                else
-                {
-                    HookKeys.Content = "Выключено";
-                    keys = false;
-                    hook.Uninstall();
-                }
+            if (!keys)
+            {
+                HookKeys.Content = "Включено";
+                keys = true;
+                hook.Install();
+            }
+            else
+            {
+                HookKeys.Content = "Выключено";
+                keys = false;
+                hook.Uninstall();
+            }
             //}
             //catch(Exception ex) { MessageBox.Show(ex.ToString()); }
         }
@@ -645,7 +643,7 @@ namespace CheckerPlus
             {
                 try
                 {
-                    if(a!=null)
+                    if (a != null)
                         a.Kill();
                 }
                 catch
@@ -661,67 +659,6 @@ namespace CheckerPlus
 
             }
 
-        }
-
-        private void generate_columns()
-        {
-            DataGridTextColumn c2 = new DataGridTextColumn
-            {
-                Header = "Название",
-                Binding = new Binding("namefile"),
-                Width = 160
-            };
-            DataFiles.Columns.Add(c2);
-            DataGridTextColumn c3 = new DataGridTextColumn
-            {
-                Header = "Размер",
-                Binding = new Binding("height"),
-                Width = 70
-            };
-            DataFiles.Columns.Add(c3);
-            DataGridTextColumn c6 = new DataGridTextColumn
-            {
-                Header = "Подозрение",
-                Binding = new Binding("danger"),
-                Width = 100
-            };
-            DataFiles.Columns.Add(c6);
-            DataGridTextColumn c4 = new DataGridTextColumn
-            {
-                Header = "Дата",
-                Binding = new Binding("lastchange"),
-                Width = 180
-            };
-            DataFiles.Columns.Add(c4);
-            DataGridTextColumn c7 = new DataGridTextColumn
-            {
-                Header = "Путь",
-                Binding = new Binding("path"),
-                Width = 155
-            };
-            DataFiles.Columns.Add(c7);
-            //
-            DataGridTextColumn a2 = new DataGridTextColumn
-            {
-                Header = "Ник",
-                Binding = new Binding("personaname"),
-                Width = 145
-            };
-            DataAccounts.Columns.Add(a2);
-            DataGridTextColumn a3 = new DataGridTextColumn
-            {
-                Header = "SteamID",
-                Binding = new Binding("steamid"),
-                Width = 245
-            };
-            DataAccounts.Columns.Add(a3);
-            DataGridTextColumn a4 = new DataGridTextColumn
-            {
-                Header = "VAC",
-                Binding = new Binding("VACBanned"),
-                Width = 125
-            };
-            DataAccounts.Columns.Add(a4);
         }
 
         void startfind()
@@ -813,7 +750,7 @@ namespace CheckerPlus
                 while (true)
                 {
                     Thread.Sleep(100);
-                    _A:
+                _A:
                     if (dllexxs.Count() > 0)
                     {
                         if (Find_.CheckFileInfo(dllexxs[0]) == 3)
@@ -835,7 +772,7 @@ namespace CheckerPlus
                     switch (w_)
                     {
                         case ".ini":
-                            if (Find_.CheckText(file.FullName,Find_.warringtext))
+                            if (Find_.CheckText(file.FullName, Find_.warringtext))
                             {
                                 d = 2;
                                 goto addf;
@@ -857,7 +794,7 @@ namespace CheckerPlus
             if (Find_.checkext(file.FullName) && include(file))
                 dllexxs.Add(file);
             return false;
-            addf:
+        addf:
 
             addfile(file, d);
 

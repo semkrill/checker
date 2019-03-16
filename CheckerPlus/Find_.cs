@@ -1,7 +1,4 @@
-﻿// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
-// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -136,11 +133,9 @@ namespace CheckerPlus
             char c;
             for (int bx = 0, sx = 0; bx < buffer.Length; ++bx, ++sx)
             {
-                // Convert first half of byte
                 c = str[sx];
                 buffer[bx] = (byte)((c > '9' ? (c > 'Z' ? (c - 'a' + 10) : (c - 'A' + 10)) : (c - '0')) << 4);
 
-                // Convert second half of byte
                 c = str[++sx];
                 buffer[bx] |= (byte)(c > '9' ? (c > 'Z' ? (c - 'a' + 10) : (c - 'A' + 10)) : (c - '0'));
             }

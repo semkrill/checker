@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CheckerPlus"
         mc:Ignorable="d"
-        Title="Окно запуска" Height="283" Width="321.151" WindowStyle="None" Background="{x:Null}" ResizeMode="NoResize" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen" AllowsTransparency="True" Foreground="{x:Null}">
+        Title="Окно запуска" Height="283" Width="321.151" WindowStyle="None" Background="{x:Null}" ResizeMode="NoResize" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen" AllowsTransparency="True" Foreground="{x:Null}" Topmost="True">
     <Window.Resources>
         <Style x:Key="ColorRectangleStyle" TargetType="Rectangle">
             <Style.Triggers>
@@ -60,13 +60,13 @@
                     <DropShadowEffect BlurRadius="2" ShadowDepth="2" Opacity="0.3"/>
                 </Rectangle.Effect>
             </Rectangle>
-            <Button Template="{DynamicResource ButtonTemplate}"  x:Name="Button_Timer" HorizontalAlignment="Center" Margin="0,0,0,20" VerticalAlignment="Bottom" Width="168" Height="33" BorderBrush="{x:Null}" Click="Button3_Copy_Click" IsHitTestVisible="False" Background="#FF272727" Content="Загрузка" Foreground="White" FontFamily="/CheckerPlus;component/MyFonts/#Roboto Thin" FontSize="22" SnapsToDevicePixels="True" >
+            <Button Template="{DynamicResource ButtonTemplate}"  x:Name="Button_Load" HorizontalAlignment="Center" Margin="0,0,0,20" VerticalAlignment="Bottom" Width="168" Height="33" BorderBrush="{x:Null}" Click="Button3_Copy_Click" IsHitTestVisible="False" Background="#FF272727" Content="Загрузка файлов" Foreground="White" FontFamily="/CheckerPlus;component/MyFonts/#Roboto Thin" FontSize="18" SnapsToDevicePixels="True" >
                 <Button.Effect>
                     <DropShadowEffect Opacity="0.4" BlurRadius="2" ShadowDepth="2"/>
                 </Button.Effect>
             </Button>
             <Label x:Name="label" Content="Програма запускается" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="22" Foreground="Black" FontFamily="/CheckerPlus;component/MyFonts/#Roboto Thin" Height="42" Width="236" Margin="0,40,0,0"/>
-            <ProgressBar x:Name="progressBar" HorizontalAlignment="Center" Height="23" Margin="0" VerticalAlignment="Center" Width="200" Foreground="#FF383838"/>
+            <ProgressBar x:Name="progressBar" HorizontalAlignment="Center" Height="23" Margin="0" VerticalAlignment="Center" Width="200" Foreground="#FF383838" Maximum="130"/>
         </Grid>
     </Grid>
 </Window>

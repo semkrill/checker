@@ -16,120 +16,78 @@ namespace CheckerPlus.Steam
     {
         public class FullState
         {
-            public BAN Ban { get; }
-            public Player player { get; }
-            public FullState(BAN ban,Player player)
-            {
-                this.Ban = ban;
-                this.player = player;
-            }
+            public bool ban;
+            public string name;
+            public string id;
+            public string url;
         }
-
-        public class FullStates
-        {
-            public List<BAN> Ban { get; }
-            public List<Player> player { get; }
-            public FullStates(List<BAN> ban, List<Player> player)
-            {
-                this.Ban = ban;
-                this.player = player;
-            }
-        }
-
-        public class BAN
-        {
-            public string SteamId { get; set; }
-            public bool CommunityBanned { get; set; }
-            public bool VACBanned { get; set; }
-            public int NumberOfVACBans { get; set; }
-            public int DaysSinceLastBan { get; set; }
-            public int NumberOfGameBans { get; set; }
-            public string EconomyBan { get; set; }
-        }
-
-        public class RootObject
-        {
-            public List<BAN> players { get; set; }
-        }
-
-        public class Player
-        {
-            public string steamid { get; set; }
-            public int communityvisibilitystate { get; set; }
-            public int profilestate { get; set; }
-            public string personaname { get; set; }
-            public int lastlogoff { get; set; }
-            public string profileurl { get; set; }
-            public string avatar { get; set; }
-            public string avatarmedium { get; set; }
-            public string avatarfull { get; set; }
-            public int personastate { get; set; }
-            public string primaryclanid { get; set; }
-            public int timecreated { get; set; }
-            public int personastateflags { get; set; }
-        }
-
-        public class Response
-        {
-            public List<Player> players { get; set; }
-        }
-
-        public class RootObjectPlayer
-        {
-            public Response response { get; set; }
-        }
-
-        readonly static private string steamkey = "";
 
         public static FullState GetProfile(string id)
         {
-            Player newplayer = null;
-            BAN newban = null;
-            try
-            {
-                WebClient webClient = new WebClient();
-                string json_profile = webClient.DownloadString("http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=" + steamkey + "&steamids=" + id);
-                newplayer = JsonConvert.DeserializeObject<RootObjectPlayer>(json_profile).response.players[0];
-                string json_bans = webClient.DownloadString("http://api.steampowered.com/ISteamUser/GetPlayerBans/v1/?key=" + steamkey + "&steamids=" + id);
-                newban = JsonConvert.DeserializeObject<RootObject>(json_bans).players[0];
-            }
-            catch { }
-            return new FullState(newban, newplayer);
+            return Parse(id);
         }
 
         public static List<FullState> GetProfiles()
         {
             List<FullState> fullStates = new List<FullState>();
             string steamalls = string.Empty;
-            var d = SteamProfiles.GetAllProfiles();
-            if (d.Count()==0)
+            var list = SteamProfiles.GetAllProfiles();
+            if (list.Count() == 0)
                 return fullStates;
-            for(int a = 0;a<d.Count();a++)
-            {
-                if (a + 1 % 2 == 0)
-                    steamalls += ",";
 
-                steamalls += d[a];
-            }
-            List<Player> newplayer = null;
-            List<BAN> newban = null;
-            try
+            foreach (var a in list)
             {
-                WebClient webClient = new WebClient();
-                string json_profile = webClient.DownloadString("http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=" + steamkey + "&steamids=" + steamalls);
-                newplayer = JsonConvert.DeserializeObject<RootObjectPlayer>(json_profile).response.players;
-                string json_bans = webClient.DownloadString("http://api.steampowered.com/ISteamUser/GetPlayerBans/v1/?key=" + steamkey + "&steamids=" + steamalls);
-                newban = JsonConvert.DeserializeObject<RootObject>(json_bans).players;
+                var prs = Parse(a);
+                if (prs != null)
+                    fullStates.Add(prs);
             }
-            catch {
-                return fullStates;
-            }
-            for(int a = 0;a<newplayer.Count();a++)
-            {
-                fullStates.Add(new FullState(newban[a], newplayer[a]));
-            }
+
             return fullStates;
         }
 
+        public static FullState Parse(string id)
+        {
+            try
+            {
+                long steamid = SteamConverter.FromSteam64ToSteam32(long.Parse(id));
+                WebBrowser web = new WebBrowser();
+                FullState fullState = new FullState();
+                web.Navigate("https://steamid.xyz/" + steamid);
+                while (web.ReadyState != WebBrowserReadyState.Complete)
+                {
+                    Application.DoEvents();
+                }
+                string name = "User";
+                try
+                {
+                    var lines = Regex.Split(web.DocumentText, @"\n");
+                    for (int d = 0; d < lines.Count(); d++)
+                        if (lines[d].Contains("Nick Name"))
+                        {
+                            name = Regex.Match(lines[d + 1], "value=\"(.+)\"").Value;
+                            name = name.Substring(7, name.Length - 7);
+                            name = name.Remove(name.Length - 1);
+                        }
+                }
+                catch { }
+                string url = "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/fe/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb_full.jpg";
+                try
+                {
+                    url = Regex.Match(web.DocumentText, @"https://steamcdn-a.akamaihd.net/steamcommunity/public/images/(.+)").Value.Replace("\">", string.Empty);
+                }
+                catch { }
+
+                if (web.DocumentText.Contains("User is VAC Banned"))
+                    fullState.ban = true;
+
+                fullState.name = name;
+                fullState.id = id;
+                fullState.url = url;
+
+                return fullState;
+            }
+            catch { }
+            return null;
+        }
     }
 }

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:CheckerPlus"
         xmlns:System="clr-namespace:System;assembly=mscorlib" x:Class="CheckerPlus.AppWindow"
         mc:Ignorable="d"
-        Title="Главное окно" Height="515" Width="800" Visibility="Visible" Background="{x:Null}" ResizeMode="NoResize" WindowStyle="None" AllowsTransparency="True">
+        Title="Главное окно" Height="515" Width="800" Background="{x:Null}" ResizeMode="NoResize" WindowStyle="None" AllowsTransparency="True" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <Style x:Key="MaterialDesignWhite" TargetType="{x:Type Button}">
             <Setter Property="OverridesDefaultStyle" Value="True" />
@@ -379,6 +379,12 @@
                     <DataGrid.Effect>
                         <DropShadowEffect Opacity="0.3" BlurRadius="2" ShadowDepth="2"/>
                     </DataGrid.Effect>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Название" Binding="{Binding Path=namefile}" Width="160" />
+                        <DataGridHyperlinkColumn Header="Размер" Binding="{Binding Path=height}" Width="80" />
+                        <DataGridTextColumn Header="Подозрение" Binding="{Binding Path=danger}" Width="100" />
+                        <DataGridTextColumn Header="Дата" Binding="{Binding Path=danger}" Width="180" />
+                    </DataGrid.Columns>
                 </DataGrid>
                 <Button Style="{StaticResource MaterialDesign}"  x:Name="button_startfind" Content="Начать поиск" HorizontalAlignment="Center" VerticalAlignment="Center" Width="146" Height="38" FontSize="20" FontFamily="/CheckerPlus;component/MyFonts/#Roboto Black" Foreground="White" Margin="202,117,180,151" BorderBrush="#00D3D3D3" Background="#FF363636" Click="button_startfind_Click"/>
 
@@ -408,6 +414,11 @@
                     <DataGrid.Effect>
                         <DropShadowEffect Opacity="0.3" BlurRadius="2" ShadowDepth="2"/>
                     </DataGrid.Effect>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Name" Binding="{Binding Path=personaname}" Width="145" />
+                        <DataGridHyperlinkColumn Header="SteamID" Binding="{Binding Path=steamid}" Width="245" />
+                        <DataGridTextColumn Header="VAC" Binding="{Binding Path=VACBanned}" Width="125" />
+                    </DataGrid.Columns>
                 </DataGrid>
                 <Label x:Name="Label_NoAccounts" Content="Аккаунты не обнаружены" HorizontalAlignment="Left" Margin="40,101,0,0" VerticalAlignment="Top" Height="72" Width="434" FontFamily="/CheckerPlus;component/MyFonts/#Roboto Thin" FontSize="36" Foreground="#FF131313" Visibility="Hidden"/>
             </Grid>
