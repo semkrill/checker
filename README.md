@@ -1,6 +1,6 @@
 # CheckerPlus
 Программа для поиска чит-программ и макросов.
-![alt text](http://url/to/img.png)
+!(https://i4.wampi.ru/2019/03/15/Screenshot_8.png)
 
 ### Достоинства программы: 
 	Маленький вес  
