@@ -1,6 +1,6 @@
 # CheckerPlus
 Программа для поиска чит-программ и макросов.  
-#### [Скачать](https://github.com/Kaidoz/CheckerPlus/releases/download/1.3.0.0/CheckerPlus.exe)
+#### [Скачать](https://github.com/Kaidoz/CheckerPlus/releases/download/1.3.0.0/)
 
 
 ### Достоинства программы: 
