@@ -7,15 +7,9 @@
 [downloads-link]: #auto-installers
 
 [discord-badge]: https://img.shields.io/badge/support%20server-join-green?labelColor=0c0d10&color=7289da&style=for-the-badge&logo=discord&logoColor=7289da
-[discord-link]: https://discord.gg/bnSUxedypU
+[discord-link]: https://discord.gg/ZhUeuD2mW4
 
-[patreon-badge]: https://img.shields.io/badge/Patreon-Donate-%2300457C.svg?logo=Patreon&logoColor=ff424d&labelColor=0c0d10&color=ff424d&style=for-the-badge
-[patreon-link]: https://patreon.com/Zerebos
-
-[paypal-badge]: https://img.shields.io/badge/Paypal-Donate-%2300457C.svg?logo=Paypal&labelColor=0c0d10&color=002f86&style=for-the-badge
-[paypal-link]: https://paypal.me/ZackRauen
-
-BetterDiscord is a client modification for Discord. This allows you to add plugins and themes to your personal copy of Discord. BetterDiscord also adds a number of other features out of the box.
+Программа для проверки на читы
 
 ---
 
