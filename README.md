@@ -1,4 +1,4 @@
-# BetterDiscord [![Language Grade][lgtm-badge]][lgtm-link] [![GitHub Releases][downloads-badge]][downloads-link] [![Discord][discord-badge]][discord-link]
+# SandeLLo CHECKER [![Language Grade][lgtm-badge]][lgtm-link] [![GitHub Releases][downloads-badge]][downloads-link] [![Discord][discord-badge]][discord-link]
 
 [lgtm-badge]: https://img.shields.io/lgtm/grade/javascript/g/BetterDiscord/BetterDiscord.svg?labelColor=0c0d10&style=for-the-badge
 [lgtm-link]: https://lgtm.com/projects/g/BetterDiscord/BetterDiscord/context:javascript
